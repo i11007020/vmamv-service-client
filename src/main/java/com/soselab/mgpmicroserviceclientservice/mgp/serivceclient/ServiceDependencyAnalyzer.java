@@ -208,6 +208,7 @@ public class ServiceDependencyAnalyzer {
         }
         // Subscribe
         for (Class c: classes) {
+            String cPath = c.isAnnotationPresent(RestController.class) ? getControllerPath(c) : "";
             if (c.isAnnotationPresent(RabbitListener.class)) {
                 ObjectVendorExtension oasSourcePath = newOrGetObjProperty(subscribe.getValue(), "none");
                 subscribe.addProperty(oasSourcePath);
@@ -238,7 +239,7 @@ public class ServiceDependencyAnalyzer {
                     || m.isAnnotationPresent(PatchMapping.class)
                     || m.isAnnotationPresent(DeleteMapping.class)) {
                         HashMap<String, String> sourceInfoMap = getInfoFromMapping(m);
-                        ObjectVendorExtension oasSourcePath = newOrGetObjProperty(subscribe.getValue(), sourceInfoMap.get("path"));
+                        ObjectVendorExtension oasSourcePath = newOrGetObjProperty(subscribe.getValue(), cPath + sourceInfoMap.get("path"));
                         subscribe.addProperty(oasSourcePath);
                         ObjectVendorExtension oasSourceMethod = new ObjectVendorExtension(sourceInfoMap.get("method"));
                         oasSourcePath.addProperty(oasSourceMethod);
