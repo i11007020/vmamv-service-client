@@ -25,14 +25,5 @@ HELP.md
 /.nb-gradle/
 /build/
 
-*.*
-mvnw
-!.gitignore
-!/src/main/java/com/soselab/mgpmicroserviceclientservice/mgp/*/*
-!/src/main/java/com/soselab/mgpmicroserviceclientservice/mgp/*/*/*
-!/src/main/resources/logback-spring.xml
-!pom.xml
-
-
-
-
+### VS Code ###
+.vscode/

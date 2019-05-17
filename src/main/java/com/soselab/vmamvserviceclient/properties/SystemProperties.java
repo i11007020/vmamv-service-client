@@ -1,4 +1,4 @@
-package com.soselab.mgpmicroserviceclientservice.mgp.serivceclient.properties;
+package com.soselab.vmamvserviceclient.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

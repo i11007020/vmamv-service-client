@@ -1,12 +1,12 @@
-package com.soselab.mgpmicroserviceclientservice.mgp.serivceclient.annotation;
+package com.soselab.vmamvserviceclient.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target({ElementType.TYPE, ElementType.METHOD})
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface RabbitPublisher {
+public @interface TargetVersion {
     String value();
 }

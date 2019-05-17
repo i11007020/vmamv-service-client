@@ -1,4 +1,4 @@
-package com.soselab.mgpmicroserviceclientservice.mgp.serivceclient.annotation;
+package com.soselab.vmamvserviceclient.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,6 +7,8 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface FeignRequests {
-    FeignRequest[] value();
+public @interface FeignRequest {
+    Class<?> client();
+    String method();
+    Class<?>[] parameterTypes() default {};
 }

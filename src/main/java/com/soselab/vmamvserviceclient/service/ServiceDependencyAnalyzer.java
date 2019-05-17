@@ -1,6 +1,6 @@
-package com.soselab.mgpmicroserviceclientservice.mgp.serivceclient;
+package com.soselab.vmamvserviceclient.service;
 
-import com.soselab.mgpmicroserviceclientservice.mgp.serivceclient.annotation.*;
+import com.soselab.vmamvserviceclient.annotation.*;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import org.slf4j.Logger;
@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.service.ListVendorExtension;
 import springfox.documentation.service.ObjectVendorExtension;
@@ -19,7 +18,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
-@Component
 public class ServiceDependencyAnalyzer {
 
     private static final Logger logger = LoggerFactory.getLogger(ServiceDependencyAnalyzer.class);
@@ -353,7 +351,7 @@ public class ServiceDependencyAnalyzer {
         if (feignClient.isInterface() && feignClient.isAnnotationPresent(FeignClient.class)) {
             Method feignMethod = null;
             try {
-                feignMethod = feignClient.getMethod(request.method());
+                feignMethod = feignClient.getMethod(request.method(), request.parameterTypes());
             } catch (NoSuchMethodException e) {
                 logger.error(e.getMessage(), e);
             }
@@ -384,12 +382,15 @@ public class ServiceDependencyAnalyzer {
         Method[] methods = request.annotationType().getDeclaredMethods();
         Class<?> feignClient = null;
         String feignMethodName = null;
+        Class<?>[] feignParameterTypes = null;
         for (Method method: methods) {
             try {
                 if (method.getName().equals("client")) {
                     feignClient = (Class<?>) method.invoke(request, (Object[]) null);
                 } else if (method.getName().equals("method")) {
                     feignMethodName = (String) method.invoke(request, (Object[]) null);
+                } else if (method.getName().equals("parameterTypes")) {
+                    feignParameterTypes = (Class<?>[]) method.invoke(request, (Object[]) null);
                 }
             } catch (IllegalAccessException e) {
                 logger.error(e.getMessage(), e);
@@ -401,7 +402,7 @@ public class ServiceDependencyAnalyzer {
         if (feignClient.isInterface() && feignClient.isAnnotationPresent(FeignClient.class)) {
             Method feignMethod = null;
             try {
-                feignMethod = feignClient.getMethod(feignMethodName);
+                feignMethod = feignClient.getMethod(feignMethodName, feignParameterTypes);
             } catch (NoSuchMethodException e) {
                 logger.error(e.getMessage(), e);
             }
