@@ -10,6 +10,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import(com.soselab.vmamvserviceclient.service.ServiceDependencyAnalyzer.class)
+@Import({com.soselab.vmamvserviceclient.service.ServiceDependencyAnalyzer.class,com.soselab.vmamvserviceclient.service.ContractAnalyzer.class})
 public @interface EnableVmamvClient {
 }
