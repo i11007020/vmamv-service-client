@@ -25,9 +25,6 @@ public class ServiceDependencyAnalyzer {
     private static final String GET = "get", POST = "post", PUT = "put", PATCH = "patch", DELETE = "delete";
 
     public List<VendorExtension> swaggerExtension(String basePackage) {
-        URL base = this.getClass().getResource("");
-        System.out.println(base);
-
         Set<Class<?>> classes = getClasses(basePackage);
         ObjectVendorExtension extension = new ObjectVendorExtension("x-serviceDependency");
         ObjectVendorExtension httpRequest = getHttpRequestProperty(classes);
