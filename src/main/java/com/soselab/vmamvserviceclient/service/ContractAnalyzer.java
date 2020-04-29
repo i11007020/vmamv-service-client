@@ -101,7 +101,7 @@ public class ContractAnalyzer {
             if(testXmlSource != null) {
                 for (HashMap<String, String> h : testXmlSource) {
 
-                    System.out.println("hhhhhh: " + h.getOrDefault("name", "null"));
+                    System.out.println("testMethodName: " + h.getOrDefault("name", "null"));
 
                     if (h.getOrDefault("name", "null").replaceFirst("validate_", "").equals(name.getValue().replaceAll("-","_"))) {
                         started = new StringVendorExtension("started-at", h.getOrDefault("started-at", "null"));
