@@ -122,6 +122,18 @@ public class ContractAnalyzer {
                             test.addProperty(status);
                         }
 
+                        if(h.getOrDefault("status", "null").equals("FAIL")){
+                            StringVendorExtension exceptionType = new StringVendorExtension("exception", h.getOrDefault("exception", "null"));
+                            StringVendorExtension errorMessage = new StringVendorExtension("message", h.getOrDefault("message", "null"));
+
+                            if (exceptionType.getValue() != null) {
+                                test.addProperty(exceptionType);
+                            }
+                            if (errorMessage.getValue() != null) {
+                                test.addProperty(errorMessage);
+                            }
+                        }
+
                         break;
                     }
                 }
