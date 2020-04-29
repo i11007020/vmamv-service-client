@@ -103,7 +103,7 @@ public class ContractAnalyzer {
 
                     System.out.println("hhhhhh: " + h.getOrDefault("name", "null"));
 
-                    if (h.getOrDefault("name", "null").replaceFirst("validate_", "").equals(name.getValue().replaceAll("/","_").replaceAll("-","_"))) {
+                    if (h.getOrDefault("name", "null").replaceFirst("validate_", "").equals(name.getValue().replaceAll("-","_"))) {
                         started = new StringVendorExtension("started-at", h.getOrDefault("started-at", "null"));
                         finished = new StringVendorExtension("finished-at", h.getOrDefault("finished-at", "null"));
                         duration = new StringVendorExtension("duration-ms", h.getOrDefault("duration-ms", "null"));
