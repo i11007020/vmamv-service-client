@@ -200,6 +200,30 @@ public class ContractAnalyzer {
                             logger.info("duration-ms: " + hashMap.getOrDefault("duration-ms","null"));
                             logger.info("status: " + hashMap.getOrDefault("status","null"));
 
+                            // 假如是失敗的
+                            if (hashMap.getOrDefault("status","null").equals("FAIL")){
+                                Element elem2 = (Element) jNode;
+                                NodeList nl2 = elem2.getElementsByTagName("exception");
+
+                                // <exception>
+                                Node node2 = nl2.item(0);
+                                String exceptionType = node2.getAttributes().getNamedItem("name").getNodeValue();
+
+                                // <message>
+                                Element elem3 = (Element) iNode;
+                                NodeList nl3 = elem.getElementsByTagName("message");
+                                Node node3 = nl3.item(0);
+//                                NodeList nl4 = elem.getElementsByTagName("full-stacktrace");
+
+                                String errorMessage = node3.getTextContent();
+
+                                hashMap.put("exception", exceptionType);
+                                hashMap.put("message", errorMessage);
+
+                                logger.info("exception: " + hashMap.getOrDefault("exception","null"));
+                                logger.info("message: " + hashMap.getOrDefault("message","null"));
+                            }
+
                             al.add(hashMap);
                         }
 
