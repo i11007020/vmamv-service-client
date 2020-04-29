@@ -193,12 +193,12 @@ public class ContractAnalyzer {
                             hashMap.put("duration-ms", jNode.getAttributes().getNamedItem("duration-ms").getNodeValue());
                             hashMap.put("status", jNode.getAttributes().getNamedItem("status").getNodeValue());
 
-                            logger.info(hashMap.getOrDefault("signature","null"));
-                            logger.info(hashMap.getOrDefault("name","null"));
-                            logger.info(hashMap.getOrDefault("started-at","null"));
-                            logger.info(hashMap.getOrDefault("finished-at","null"));
-                            logger.info(hashMap.getOrDefault("duration-ms","null"));
-                            logger.info(hashMap.getOrDefault("status","null"));
+                            logger.info("signature: " + hashMap.getOrDefault("signature","null"));
+                            logger.info("name: " + hashMap.getOrDefault("name","null"));
+                            logger.info("started-at: " + hashMap.getOrDefault("started-at","null"));
+                            logger.info("finished-at: " + hashMap.getOrDefault("finished-at","null"));
+                            logger.info("duration-ms: " + hashMap.getOrDefault("duration-ms","null"));
+                            logger.info("status: " + hashMap.getOrDefault("status","null"));
 
                             al.add(hashMap);
                         }
