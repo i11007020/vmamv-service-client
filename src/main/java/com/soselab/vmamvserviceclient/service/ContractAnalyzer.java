@@ -207,7 +207,7 @@ public class ContractAnalyzer {
 
                                 // <exception>
                                 Node node2 = nl2.item(0);
-                                String exceptionType = node2.getAttributes().getNamedItem("name").getNodeValue();
+                                String exceptionType = node2.getAttributes().getNamedItem("class").getNodeValue();
 
                                 // <message>
                                 Element elem3 = (Element) iNode;
