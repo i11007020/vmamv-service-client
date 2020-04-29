@@ -231,7 +231,7 @@ public class ContractAnalyzer {
                                 Node node3 = nl3.item(0);
 //                                NodeList nl4 = elem.getElementsByTagName("full-stacktrace");
 
-                                String errorMessage = node3.getTextContent();
+                                String errorMessage = node3.getTextContent().trim().replaceAll("\n","").replaceAll("\\\\","");
 
                                 hashMap.put("exception", exceptionType);
                                 hashMap.put("message", errorMessage);
