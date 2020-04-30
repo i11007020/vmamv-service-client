@@ -16,6 +16,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -55,8 +56,9 @@ public class ContractAnalyzer2 {
 
 
     public void readFile(String fileDir){
+
         List<File> fileList = new ArrayList<>();
-        File file = new File(fileDir);
+        File file = new File(this.getClass().getResource(fileDir).getPath());
         File[] files = file.listFiles();// 獲取目錄下的所有檔案或資料夾
         if (files == null) {// 如果目錄為空，直接退出
             return;
@@ -182,10 +184,8 @@ public class ContractAnalyzer2 {
 
     private String readfile_groovy(String filepath) throws IOException {
         try {
-
             InputStream is = this.getClass().getResourceAsStream(filepath);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
-
             String s = "";
             StringBuilder sb = new StringBuilder("");
             while ((s = br.readLine()) != null)
