@@ -17,10 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.io.File;
 
 public class ContractAnalyzer2 {
@@ -58,14 +55,27 @@ public class ContractAnalyzer2 {
     public void readFile(String fileDir){
 
 
-        List<File> fileList = new ArrayList<>();
+        InputStream in = this.getClass().getClassLoader().getResourceAsStream("notification/contracts");
+        InputStreamReader inReader = new InputStreamReader(in);
+        Scanner scan = new Scanner(inReader);
+
+        System.out.println("nnnnnnnnnnnnn: ");
+        while (scan.hasNext()) {
+            String s = scan.next();
+            System.out.println("read: " + s);
+        }
+
+        System.out.println("END OF LINE");
+
+
+/*        List<File> fileList = new ArrayList<>();
         File file = new File(this.getClass().getResource(fileDir).getPath());
 
         String[] ff = file.list();
         System.out.println("nnnnnnnnnnnnn: ");
         for(String s : ff){
             System.out.println(s);
-        }
+        }*/
 
         /*System.out.println("FileDirectory: " + this.getClass().getResource(fileDir).getPath());
         File[] files = file.listFiles();// 獲取目錄下的所有檔案或資料夾
