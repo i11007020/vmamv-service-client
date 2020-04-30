@@ -57,7 +57,7 @@ public class ContractAnalyzer2 {
     public void readFile(String fileDir){
 
 
-        InputStream in = this.getClass().getResourceAsStream("/notification/contracts/");
+        InputStream in = this.getClass().getResourceAsStream("notification/contracts/");
         InputStreamReader inReader = new InputStreamReader(in);
         Scanner scan = new Scanner(inReader);
         String temp = "";
