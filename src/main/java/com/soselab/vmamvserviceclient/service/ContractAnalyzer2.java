@@ -31,7 +31,9 @@ public class ContractAnalyzer2 {
         ArrayList<String> contractSource = new ArrayList<>();
         ArrayList<String> mappingSource = new ArrayList<>();
 
+        System.out.println("filepath_groovy: ");
         readFile(filepath_groovy);
+        System.out.println("filepath_mappings: ");
         readFile(filepath_mappings);
 
 
