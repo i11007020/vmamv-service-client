@@ -60,8 +60,10 @@ public class ContractAnalyzer2 {
 
         List<File> fileList = new ArrayList<>();
         File file = new File(this.getClass().getResource(fileDir).getPath());
+        System.out.println("FileDirectory: " + this.getClass().getResource(fileDir).getPath());
         File[] files = file.listFiles();// 獲取目錄下的所有檔案或資料夾
         if (files == null) {// 如果目錄為空，直接退出
+            System.out.println("null");
             return;
         }
         // 遍歷，目錄下的所有檔案
