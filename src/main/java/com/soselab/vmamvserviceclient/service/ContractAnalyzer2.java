@@ -34,6 +34,8 @@ public class ContractAnalyzer2 {
         System.out.println("filepath_mappings: ");
         //readFile(filepath_mappings);
 
+        readfile_testXml(filepath_testXml,appName);
+
 
 /*        String contractSource = readfile_groovy(filepath_groovy);
 
@@ -55,7 +57,7 @@ public class ContractAnalyzer2 {
     public void readFile(String fileDir){
 
 
-        InputStream in = this.getClass().getClassLoader().getResourceAsStream("notification/contracts/");
+        InputStream in = this.getClass().getResourceAsStream("/notification/contracts/");
         InputStreamReader inReader = new InputStreamReader(in);
         Scanner scan = new Scanner(inReader);
         String temp = "";
