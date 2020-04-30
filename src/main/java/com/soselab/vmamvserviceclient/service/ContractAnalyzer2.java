@@ -49,7 +49,7 @@ public class ContractAnalyzer2 {
                 extension = getContractProperty(contractSource, filepath_testXml, appName);
         }
         return Collections.singletonList(extension);*/
-        return null;
+        return Collections.singletonList(new ObjectVendorExtension("x-contract"));
     }
 
 
