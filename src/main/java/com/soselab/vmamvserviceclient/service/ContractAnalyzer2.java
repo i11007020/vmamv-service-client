@@ -58,13 +58,16 @@ public class ContractAnalyzer2 {
         InputStream in = this.getClass().getClassLoader().getResourceAsStream("notification/contracts");
         InputStreamReader inReader = new InputStreamReader(in);
         Scanner scan = new Scanner(inReader);
-
+        String temp = "";
         // jenkins的console log有，但是docker log沒有
         while (scan.hasNext()) {
             String s = scan.next();
+            temp += "-" + s;
             System.out.println("read: " + s);
             logger.info("read: " + s);
         }
+
+        System.out.println("temp: " + temp);
 
         System.out.println("END OF LINE");
 
