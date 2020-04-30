@@ -42,10 +42,6 @@ public class ContractAnalyzer {
         String contractSource = readfile_groovy(filepath_groovy);
 
 
-        System.out.println("filepath_groovy: ");
-        contractAnalyzer2.readFile(filepath_groovy);
-
-
         ObjectVendorExtension extension;
 
         if(contractSource == null || contractSource.equals("")) {
