@@ -59,10 +59,11 @@ public class ContractAnalyzer2 {
         InputStreamReader inReader = new InputStreamReader(in);
         Scanner scan = new Scanner(inReader);
 
-        System.out.println("nnnnnnnnnnnnn: ");
+        // jenkins的console log有，但是docker log沒有
         while (scan.hasNext()) {
             String s = scan.next();
             System.out.println("read: " + s);
+            logger.info("read: " + s);
         }
 
         System.out.println("END OF LINE");
