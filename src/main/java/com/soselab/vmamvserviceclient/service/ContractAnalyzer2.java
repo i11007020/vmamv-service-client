@@ -60,7 +60,9 @@ public class ContractAnalyzer2 {
 
         JarFile jf = null;
         try {
+//            String s = new File(this.getClass().getResource("").getPath()).getParent().replaceAll("(!|file:\\\\)", "");
             String s = new File(this.getClass().getResource("").getPath()).getParent().replaceAll("(!|file:\\\\)", "");
+            System.out.println("ssssssssss: " + s);
             jf = new JarFile(s);
 
             Enumeration<JarEntry> entries = jf.entries();
