@@ -62,7 +62,7 @@ public class ContractAnalyzer2 {
         try {
 //            String s = new File(this.getClass().getResource("").getPath()).getParent().replaceAll("(!|file:\\\\)", "");
             String s = new File(this.getClass().getResource("").getPath()).getParent().replaceAll("(!|file:\\\\)", "");
-            System.out.println("aaaaaaaaaa: " + this.getClass().getResource("").getPath());
+            System.out.println("aaaaaaaaaa: " + this.getClass().getResource("/").getPath());
             System.out.println("ssssssssss: " + s);
             jf = new JarFile(s);
 
