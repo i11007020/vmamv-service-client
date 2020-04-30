@@ -54,7 +54,7 @@ public class ContractAnalyzer2 {
 
 
 
-    private void readFile(String fileDir){
+    public void readFile(String fileDir){
         List<File> fileList = new ArrayList<>();
         File file = new File(fileDir);
         File[] files = file.listFiles();// 獲取目錄下的所有檔案或資料夾

@@ -33,11 +33,17 @@ import java.io.*;
 
 public class ContractAnalyzer {
 
+    ContractAnalyzer2 contractAnalyzer2;
+
     private static final Logger logger = LoggerFactory.getLogger(ContractAnalyzer.class);
     private static final String GET = "get", POST = "post", PUT = "put", PATCH = "patch", DELETE = "delete";
 
     public List<VendorExtension> swaggerExtension(String filepath_groovy, String filepath_testXml, String appName) throws Exception {
         String contractSource = readfile_groovy(filepath_groovy);
+
+
+        System.out.println("filepath_groovy: ");
+        contractAnalyzer2.readFile(filepath_groovy);
 
 
         ObjectVendorExtension extension;
