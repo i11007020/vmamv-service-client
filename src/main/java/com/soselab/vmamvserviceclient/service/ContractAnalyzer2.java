@@ -58,10 +58,34 @@ public class ContractAnalyzer2 {
 
     public void readFile(String fileDir){
 
+        JarFile jf = null;
+        try {
+//            String s = new File(this.getClass().getResource("").getPath()).getParent().replaceAll("(!|file:\\\\)", "");
+            String s = new File(this.getClass().getResource("").getPath()).getParent().replaceAll("(!|file:\\\\)", "").replaceAll("/com/soselab/vmamvserviceclient","");
+            System.out.println("aaaaaaaaaa: " + this.getClass().getResource("/").getPath());
+            System.out.println("ssssssssss: " + s);
+            jf = new JarFile(s);
+
+            Enumeration<JarEntry> entries = jf.entries();
+            while (entries.hasMoreElements()) {
+                JarEntry je = entries.nextElement();
+                if (je.getName().startsWith("contracts")) {
+                    System.out.println("read: " + je.getName());
+                }
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                jf.close();
+            } catch (Exception e) {
+            }
+        }
 
 
-        InputStream in = this.getClass().getClassLoader().getResourceAsStream("notification/contracts/");
-        //InputStream in = this.getClass().getResourceAsStream("/notification/contracts/");
+
+
+        /*InputStream in = this.getClass().getClassLoader().getResourceAsStream("notification/contracts/");
         InputStreamReader inReader = new InputStreamReader(in);
         Scanner scan = new Scanner(inReader);
         String temp = "";
@@ -75,7 +99,7 @@ public class ContractAnalyzer2 {
 
         System.out.println("temp: " + temp);
 
-        System.out.println("END OF LINE");
+        System.out.println("END OF LINE");*/
 
 
     }
