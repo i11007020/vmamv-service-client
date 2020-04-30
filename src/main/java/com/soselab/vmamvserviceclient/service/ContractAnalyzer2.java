@@ -61,7 +61,7 @@ public class ContractAnalyzer2 {
         JarFile jf = null;
         try {
 //            String s = new File(this.getClass().getResource("").getPath()).getParent().replaceAll("(!|file:\\\\)", "");
-            String s = new File(this.getClass().getResource("").getPath()).getParent().replaceAll("(!|file:\\\\)", "");
+            String s = new File(this.getClass().getResource("").getPath()).getParent().replaceAll("(!|file:\\\\)", "").replaceAll("/com/soselab/vmamvserviceclient","");
             System.out.println("aaaaaaaaaa: " + this.getClass().getResource("/").getPath());
             System.out.println("ssssssssss: " + s);
             jf = new JarFile(s);
