@@ -19,6 +19,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.*;
 import java.io.File;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 public class ContractAnalyzer2 {
 
@@ -56,8 +58,31 @@ public class ContractAnalyzer2 {
 
     public void readFile(String fileDir){
 
+        JarFile jf = null;
+        try {
+            String s = new File(this.getClass().getResource("").getPath()).getParent().replaceAll("(!|file:\\\\)", "");
+            jf = new JarFile(s);
 
-        InputStream in = this.getClass().getClassLoader().getResourceAsStream("notification/contracts/");
+            Enumeration<JarEntry> entries = jf.entries();
+            while (entries.hasMoreElements()) {
+                JarEntry je = entries.nextElement();
+                if (je.getName().startsWith("contracts")) {
+                    System.out.println("read: " + je.getName());
+                }
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                jf.close();
+            } catch (Exception e) {
+            }
+        }
+
+
+
+
+        /*InputStream in = this.getClass().getClassLoader().getResourceAsStream("notification/contracts/");
         InputStreamReader inReader = new InputStreamReader(in);
         Scanner scan = new Scanner(inReader);
         String temp = "";
@@ -71,37 +96,9 @@ public class ContractAnalyzer2 {
 
         System.out.println("temp: " + temp);
 
-        System.out.println("END OF LINE");
+        System.out.println("END OF LINE");*/
 
 
-/*        List<File> fileList = new ArrayList<>();
-        File file = new File(this.getClass().getResource(fileDir).getPath());
-
-        String[] ff = file.list();
-        System.out.println("nnnnnnnnnnnnn: ");
-        for(String s : ff){
-            System.out.println(s);
-        }*/
-
-        /*System.out.println("FileDirectory: " + this.getClass().getResource(fileDir).getPath());
-        File[] files = file.listFiles();// 獲取目錄下的所有檔案或資料夾
-        if (files == null) {// 如果目錄為空，直接退出
-            System.out.println("null");
-            return;
-        }
-        // 遍歷，目錄下的所有檔案
-        for (File f : files) {
-            if (f.isFile()) {
-                fileList.add(f);
-
-            } else if (f.isDirectory()) {
-                System.out.println(f.getAbsolutePath());
-                readFile(f.getAbsolutePath());
-            }
-        }
-        for (File f1 : fileList) {
-            System.out.println(f1.getName());
-        }*/
     }
 
 
