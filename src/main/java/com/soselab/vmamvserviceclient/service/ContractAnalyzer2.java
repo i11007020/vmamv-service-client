@@ -32,9 +32,9 @@ public class ContractAnalyzer2 {
         ArrayList<String> mappingSource = new ArrayList<>();
 
         System.out.println("filepath_groovy: ");
-        readFile(filepath_groovy);
+        //readFile(filepath_groovy);
         System.out.println("filepath_mappings: ");
-        readFile(filepath_mappings);
+        //readFile(filepath_mappings);
 
 
 /*        String contractSource = readfile_groovy(filepath_groovy);
