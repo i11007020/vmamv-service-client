@@ -34,7 +34,7 @@ public class ContractAnalyzer2 {
         ArrayList<String> mappingSource = new ArrayList<>();
 
         contractSource = readFile_dir(filepath_groovy);
-        //mappingSource = readFile_dir(filepath_mappings);
+        mappingSource = readFile_dir(filepath_mappings);
 
         //readfile_testXml(filepath_testXml,appName);
 
