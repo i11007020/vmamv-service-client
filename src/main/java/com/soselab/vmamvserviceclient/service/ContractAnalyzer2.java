@@ -30,13 +30,33 @@ public class ContractAnalyzer2 {
     private static final String GET = "get", POST = "post", PUT = "put", PATCH = "patch", DELETE = "delete";
 
     public List<VendorExtension> swaggerExtension(String filepath_groovy, String filepath_mappings, String filepath_testXml, String appName) throws Exception {
-        ArrayList<String> contractSource = new ArrayList<>();
-        ArrayList<String> mappingSource = new ArrayList<>();
+        ArrayList<String> contractFileName = new ArrayList<>();
+        //ArrayList<String> mappingSource = new ArrayList<>();
 
-        contractSource = readFile_dir(filepath_groovy);
-        mappingSource = readFile_dir(filepath_mappings);
+        contractFileName = readFile_dir(filepath_groovy);
+        //mappingSource = readFile_dir(filepath_mappings);
 
         //readfile_testXml(filepath_testXml,appName);
+
+
+        ArrayList<HashMap<String,String>> groovys = new ArrayList<>();
+
+        for(String c: contractFileName){
+            HashMap<String,String> groovy = new HashMap<String,String>();
+            groovy.put("fileName", c);
+            groovy.put("fileContent", getfileContent_groovy(filepath_groovy + c));
+            groovys.add(groovy);
+        }
+
+
+        ObjectVendorExtension extension;
+
+        if(contractFileName == null || contractFileName.equals("")) {
+            extension = new ObjectVendorExtension("x-contract");
+        } else {
+            extension = getContractProperty(groovys, filepath_testXml, appName);
+        }
+        return Collections.singletonList(extension);
 
 
 /*        String contractSource = readfile_groovy(filepath_groovy);
@@ -50,7 +70,7 @@ public class ContractAnalyzer2 {
                 extension = getContractProperty(contractSource, filepath_testXml, appName);
         }
         return Collections.singletonList(extension);*/
-        return Collections.singletonList(new ObjectVendorExtension("x-contract"));
+        //return Collections.singletonList(new ObjectVendorExtension("x-contract"));
     }
 
 
@@ -63,11 +83,11 @@ public class ContractAnalyzer2 {
 
         ArrayList<String> files = new ArrayList<>();
 
+        logger.info(fileDir + ": ");
+
         for (Resource resource : resources) {
 
             files.add(resource.getFilename());
-
-            logger.info(fileDir + ": ");
             logger.info(resource.getFilename());
 
 /*            InputStream inStream = resource.getInputStream();
@@ -95,103 +115,115 @@ public class ContractAnalyzer2 {
 
 
 
-    private ObjectVendorExtension getContractProperty(String contractSource, String filepath_testXml, String appName) throws Exception{
+    private ObjectVendorExtension getContractProperty(ArrayList<HashMap<String,String>> groovys, String filepath_testXml, String appName) throws Exception{
         ObjectVendorExtension contract =  new ObjectVendorExtension("x-contract");
 
-        String contractContent = "";
-        contractContent = contractSource.substring(contractSource.indexOf("[") + 1, contractSource.lastIndexOf("]"));
-        String [] part1 = contractContent.split("Contract.make");
 
-        //ObjectVendorExtension oasSourcePath = newOrGetObjProperty(httpRequest.getValue(), sourcePath);
-        for( int i = 1; i <= part1.length-1; i++ ) {
+        for(HashMap<String,String> groovy: groovys){
+            String fileName = groovy.get("fileName");
+            String fileContent = groovy.get("fileContent");
 
-            ObjectVendorExtension url = this.getUrl(part1[i]);
+            ObjectVendorExtension  fileNameExtension =  new ObjectVendorExtension(fileName);
+            contract.addProperty(fileNameExtension);
 
-            ObjectVendorExtension content = new ObjectVendorExtension("contractContent");
-            StringVendorExtension description = this.getDescription(part1[i]);
-            StringVendorExtension name = this.getName(part1[i]);
-            ObjectVendorExtension request = this.getRequest(part1[i]);
-            ObjectVendorExtension response = this.getResponse(part1[i]);
 
-            ObjectVendorExtension test = new ObjectVendorExtension("testResult");
-            StringVendorExtension started;
-            StringVendorExtension finished;
-            StringVendorExtension duration;
-            StringVendorExtension status;
+            String contractContent = "";
+            contractContent = fileContent.substring(fileContent.indexOf("[") + 1, fileContent.lastIndexOf("]"));
+            String [] part1 = contractContent.split("Contract.make");
 
-            url.addProperty(content);
-            url.addProperty(test);
+            //ObjectVendorExtension oasSourcePath = newOrGetObjProperty(httpRequest.getValue(), sourcePath);
+            for( int i = 1; i <= part1.length-1; i++ ) {
 
-            if (url.getValue() != null) {
-                if (description.getValue() != null) {
-                    content.addProperty(description);
+                ObjectVendorExtension url = this.getUrl(part1[i]);
+
+                ObjectVendorExtension content = new ObjectVendorExtension("contractContent");
+                StringVendorExtension description = this.getDescription(part1[i]);
+                StringVendorExtension name = this.getName(part1[i]);
+                ObjectVendorExtension request = this.getRequest(part1[i]);
+                ObjectVendorExtension response = this.getResponse(part1[i]);
+
+                ObjectVendorExtension test = new ObjectVendorExtension("testResult");
+                StringVendorExtension started;
+                StringVendorExtension finished;
+                StringVendorExtension duration;
+                StringVendorExtension status;
+
+                url.addProperty(content);
+                url.addProperty(test);
+
+                if (url.getValue() != null) {
+                    if (description.getValue() != null) {
+                        content.addProperty(description);
+                    }
+                    if (name.getValue() != null) {
+                        content.addProperty(name);
+                    }
+                    if (request.getValue() != null) {
+                        content.addProperty(request);
+                    }
+                    if (response.getValue() != null) {
+                        content.addProperty(response);
+                    }
+
+                    fileNameExtension.addProperty(url);
                 }
-                if (name.getValue() != null) {
-                    content.addProperty(name);
-                }
-                if (request.getValue() != null) {
-                    content.addProperty(request);
-                }
-                if (response.getValue() != null) {
-                    content.addProperty(response);
-                }
 
-                contract.addProperty(url);
-            }
-
-            ArrayList<HashMap<String,String>> testXmlSource = readfile_testXml(filepath_testXml, appName);
+                ArrayList<HashMap<String,String>> testXmlSource = readfile_testXml(filepath_testXml, appName);
 
 
-            if(testXmlSource != null) {
-                for (HashMap<String, String> h : testXmlSource) {
+                if(testXmlSource != null) {
+                    for (HashMap<String, String> h : testXmlSource) {
 
-                    System.out.println("testMethodName: " + h.getOrDefault("name", "null"));
+                        System.out.println("testMethodName: " + h.getOrDefault("name", "null"));
 
-                    if (h.getOrDefault("name", "null").replaceFirst("validate_", "").equals(name.getValue().replaceAll("-","_"))) {
-                        started = new StringVendorExtension("started-at", h.getOrDefault("started-at", "null"));
-                        finished = new StringVendorExtension("finished-at", h.getOrDefault("finished-at", "null"));
-                        duration = new StringVendorExtension("duration-ms", h.getOrDefault("duration-ms", "null"));
-                        status = new StringVendorExtension("status", h.getOrDefault("status", "null"));
+                        if (h.getOrDefault("name", "null").replaceFirst("validate_", "").equals(name.getValue().replaceAll("-","_"))) {
+                            started = new StringVendorExtension("started-at", h.getOrDefault("started-at", "null"));
+                            finished = new StringVendorExtension("finished-at", h.getOrDefault("finished-at", "null"));
+                            duration = new StringVendorExtension("duration-ms", h.getOrDefault("duration-ms", "null"));
+                            status = new StringVendorExtension("status", h.getOrDefault("status", "null"));
 
-                        if (started.getValue() != null) {
-                            test.addProperty(started);
-                        }
-                        if (finished.getValue() != null) {
-                            test.addProperty(finished);
-                        }
-                        if (duration.getValue() != null) {
-                            test.addProperty(duration);
-                        }
-                        if (status.getValue() != null) {
-                            test.addProperty(status);
-                        }
-
-                        if(h.getOrDefault("status", "null").equals("FAIL")){
-                            ObjectVendorExtension errorMessage = new ObjectVendorExtension("errorMessage");
-                            StringVendorExtension exceptionType = new StringVendorExtension("exception", h.getOrDefault("exception", "null"));
-                            StringVendorExtension message = new StringVendorExtension("message", h.getOrDefault("message", "null"));
-
-
-                            test.addProperty(errorMessage);
-
-                            if (exceptionType.getValue() != null) {
-                                errorMessage.addProperty(exceptionType);
+                            if (started.getValue() != null) {
+                                test.addProperty(started);
                             }
-                            if (message.getValue() != null) {
-                                errorMessage.addProperty(message);
+                            if (finished.getValue() != null) {
+                                test.addProperty(finished);
                             }
-                        }
+                            if (duration.getValue() != null) {
+                                test.addProperty(duration);
+                            }
+                            if (status.getValue() != null) {
+                                test.addProperty(status);
+                            }
 
-                        break;
+                            if(h.getOrDefault("status", "null").equals("FAIL")){
+                                ObjectVendorExtension errorMessage = new ObjectVendorExtension("errorMessage");
+                                StringVendorExtension exceptionType = new StringVendorExtension("exception", h.getOrDefault("exception", "null"));
+                                StringVendorExtension message = new StringVendorExtension("message", h.getOrDefault("message", "null"));
+
+
+                                test.addProperty(errorMessage);
+
+                                if (exceptionType.getValue() != null) {
+                                    errorMessage.addProperty(exceptionType);
+                                }
+                                if (message.getValue() != null) {
+                                    errorMessage.addProperty(message);
+                                }
+                            }
+
+                            break;
+                        }
                     }
                 }
             }
         }
 
+
+
         return contract;
     }
 
-    private String readfile_groovy(String filepath) throws IOException {
+    private String getfileContent_groovy(String filepath) throws IOException {
         try {
             InputStream is = this.getClass().getResourceAsStream(filepath);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
