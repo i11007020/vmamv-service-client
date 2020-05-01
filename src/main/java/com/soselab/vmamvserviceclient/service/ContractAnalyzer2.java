@@ -64,7 +64,8 @@ public class ContractAnalyzer2 {
         Resource[] resources = resolver.getResources("classpath:notification/contracts/*.*");
 
         for (Resource resource : resources) {
-            InputStream inStream = resource.getInputStream();
+            System.out.println("getFileName(): " + resource.getFilename());
+/*            InputStream inStream = resource.getInputStream();
             InputStreamReader inReader = new InputStreamReader(inStream);
             Scanner scan = new Scanner(inReader);
             String temp = "";
@@ -75,7 +76,7 @@ public class ContractAnalyzer2 {
                 System.out.println("read: " + s);
                 logger.info("read: " + s);
             }
-            System.out.println("temp: " + temp);
+            System.out.println("temp: " + temp);*/
             // Do something with the input stream
         }
 
