@@ -33,10 +33,8 @@ public class ContractAnalyzer2 {
         ArrayList<String> contractSource = new ArrayList<>();
         ArrayList<String> mappingSource = new ArrayList<>();
 
-        System.out.println("filepath_groovy: ");
-        readFile(filepath_groovy);
-        System.out.println("filepath_mappings: ");
-        //readFile(filepath_mappings);
+        contractSource = readFile_dir(filepath_groovy);
+        mappingSource = readFile_dir(filepath_mappings);
 
         //readfile_testXml(filepath_testXml,appName);
 
@@ -58,18 +56,24 @@ public class ContractAnalyzer2 {
 
 
 
-    public void readFile(String fileDir) throws IOException {
-
+    // 讀取jar檔某目錄下的所有檔案
+    public ArrayList<String> readFile_dir(String fileDir) throws IOException {
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        Resource[] resources = resolver.getResources("classpath:/notification/contracts/*.*");
+        Resource[] resources = resolver.getResources("classpath:"+ fileDir + "*.*");
+
+        ArrayList<String> files = new ArrayList<>();
 
         for (Resource resource : resources) {
-            System.out.println("getFileName(): " + resource.getFilename());
+
+            files.add(resource.getFilename());
+
+            logger.info(fileDir + ": ");
+            logger.info(resource.getFilename());
+
 /*            InputStream inStream = resource.getInputStream();
             InputStreamReader inReader = new InputStreamReader(inStream);
             Scanner scan = new Scanner(inReader);
             String temp = "";
-            // jenkins的console log有，但是docker log沒有
             while (scan.hasNext()) {
                 String s = scan.next();
                 temp += "-" + s;
@@ -77,28 +81,9 @@ public class ContractAnalyzer2 {
                 logger.info("read: " + s);
             }
             System.out.println("temp: " + temp);*/
-            // Do something with the input stream
         }
 
-
-
-
-        /*InputStream in = this.getClass().getClassLoader().getResourceAsStream("notification/contracts/");
-        InputStreamReader inReader = new InputStreamReader(in);
-        Scanner scan = new Scanner(inReader);
-        String temp = "";
-        // jenkins的console log有，但是docker log沒有
-        while (scan.hasNext()) {
-            String s = scan.next();
-            temp += "-" + s;
-            System.out.println("read: " + s);
-            logger.info("read: " + s);
-        }
-
-        System.out.println("temp: " + temp);
-
-        System.out.println("END OF LINE");*/
-
+        return files;
 
     }
 
