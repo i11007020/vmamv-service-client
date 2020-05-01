@@ -48,7 +48,7 @@ public class ContractAnalyzer {
 
         ObjectVendorExtension extension;
 
-        if(contractFileName.isEmpty()) {
+        if(contractFileName == null || contractFileName.size() == 0) {
             extension = new ObjectVendorExtension("x-contract");
         } else {
             ArrayList<HashMap<String,String>> groovys = new ArrayList<>();
