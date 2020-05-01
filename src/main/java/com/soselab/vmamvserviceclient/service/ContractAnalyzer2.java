@@ -36,8 +36,6 @@ public class ContractAnalyzer2 {
         contractFileName = readFile_dir(filepath_groovy);
         //mappingSource = readFile_dir(filepath_mappings);
 
-        //readfile_testXml(filepath_testXml,appName);
-
 
         ArrayList<HashMap<String,String>> groovys = new ArrayList<>();
 
@@ -57,20 +55,6 @@ public class ContractAnalyzer2 {
             extension = getContractProperty(groovys, filepath_testXml, appName);
         }
         return Collections.singletonList(extension);
-
-
-/*        String contractSource = readfile_groovy(filepath_groovy);
-
-
-        ObjectVendorExtension extension;
-
-        if(contractSource == null || contractSource.equals("")) {
-            extension = new ObjectVendorExtension("x-contract");
-        } else {
-                extension = getContractProperty(contractSource, filepath_testXml, appName);
-        }
-        return Collections.singletonList(extension);*/
-        //return Collections.singletonList(new ObjectVendorExtension("x-contract"));
     }
 
 
@@ -176,7 +160,7 @@ public class ContractAnalyzer2 {
 
                         System.out.println("testMethodName: " + h.getOrDefault("name", "null"));
 
-                        if (h.getOrDefault("name", "null").replaceFirst("validate_", "").equals(name.getValue().replaceAll("-","_"))) {
+                        if (h.getOrDefault("name", "null").toLowerCase().replaceFirst("validate_", "").equals(name.getValue().toLowerCase().replaceAll("-","_"))) {
                             started = new StringVendorExtension("started-at", h.getOrDefault("started-at", "null"));
                             finished = new StringVendorExtension("finished-at", h.getOrDefault("finished-at", "null"));
                             duration = new StringVendorExtension("duration-ms", h.getOrDefault("duration-ms", "null"));
