@@ -29,7 +29,7 @@ public class ContractAnalyzer2 {
     private static final Logger logger = LoggerFactory.getLogger(ContractAnalyzer2.class);
     private static final String GET = "get", POST = "post", PUT = "put", PATCH = "patch", DELETE = "delete";
 
-    public List<VendorExtension> swaggerExtension(String filepath_groovy, String filepath_mappings, String filepath_testXml, String appName) throws Exception {
+    public List<VendorExtension> swaggerExtension(String filepath_groovy, String filepath_testXml, String appName) throws Exception {
         ArrayList<String> contractFileName = new ArrayList<>();
         //ArrayList<String> mappingSource = new ArrayList<>();
 
