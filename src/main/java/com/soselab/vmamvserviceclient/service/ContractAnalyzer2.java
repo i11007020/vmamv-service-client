@@ -61,7 +61,7 @@ public class ContractAnalyzer2 {
     public void readFile(String fileDir) throws IOException {
 
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        Resource[] resources = resolver.getResources("classpath:notification/contracts/*.*");
+        Resource[] resources = resolver.getResources("classpath:/notification/contracts/*.*");
 
         for (Resource resource : resources) {
             System.out.println("getFileName(): " + resource.getFilename());
