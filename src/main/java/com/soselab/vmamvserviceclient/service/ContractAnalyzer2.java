@@ -2,6 +2,8 @@ package com.soselab.vmamvserviceclient.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -56,31 +58,25 @@ public class ContractAnalyzer2 {
 
 
 
-    public void readFile(String fileDir){
+    public void readFile(String fileDir) throws IOException {
 
-        JarFile jf = null;
-        try {
-//            String s = new File(this.getClass().getResource("").getPath()).getParent().replaceAll("(!|file:\\\\)", "");
-            String s = new File(this.getClass().getResource("").getPath()).getParent().replaceAll("(!|file:\\\\)", "").replaceAll("/com/soselab/vmamvserviceclient","");
-            System.out.println("aaaaaaaaaa: " + this.getClass().getResource("/").getPath());
-            System.out.println("bbbbbbbbbb: " + this.getClass().getResource("../").getPath());
-            System.out.println("ssssssssss: " + s);
-            jf = new JarFile(s);
+        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        Resource[] resources = resolver.getResources("classpath:notification/contracts/*.*");
 
-            Enumeration<JarEntry> entries = jf.entries();
-            while (entries.hasMoreElements()) {
-                JarEntry je = entries.nextElement();
-                if (je.getName().startsWith("contracts")) {
-                    System.out.println("read: " + je.getName());
-                }
+        for (Resource resource : resources) {
+            InputStream inStream = resource.getInputStream();
+            InputStreamReader inReader = new InputStreamReader(inStream);
+            Scanner scan = new Scanner(inReader);
+            String temp = "";
+            // jenkins的console log有，但是docker log沒有
+            while (scan.hasNext()) {
+                String s = scan.next();
+                temp += "-" + s;
+                System.out.println("read: " + s);
+                logger.info("read: " + s);
             }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } finally {
-            try {
-                jf.close();
-            } catch (Exception e) {
-            }
+            System.out.println("temp: " + temp);
+            // Do something with the input stream
         }
 
 
