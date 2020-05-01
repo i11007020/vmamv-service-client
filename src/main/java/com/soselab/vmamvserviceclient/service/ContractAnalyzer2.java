@@ -59,7 +59,7 @@ public class ContractAnalyzer2 {
     // 讀取jar檔某目錄下的所有檔案
     public ArrayList<String> readFile_dir(String fileDir) throws IOException {
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        Resource[] resources = resolver.getResources("classpath:"+ fileDir + "*.*");
+        Resource[] resources = resolver.getResources("classpath:/notification/mappings/*.*");
 
         ArrayList<String> files = new ArrayList<>();
 
