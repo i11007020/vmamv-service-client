@@ -69,18 +69,19 @@ public class ContractAnalyzer {
 
 
     // 讀取jar檔某目錄下的所有檔案
-    public ArrayList<String> readFile_dir(String fileDir) throws IOException {
-        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        Resource[] resources = resolver.getResources("classpath:"+ fileDir + "*.*");
+    public ArrayList<String> readFile_dir(String fileDir) {
+        try {
+            PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+            Resource[] resources = resolver.getResources("classpath:" + fileDir + "*.*");
 
-        ArrayList<String> files = new ArrayList<>();
+            ArrayList<String> files = new ArrayList<>();
 
-        logger.info(fileDir + ": ");
+            logger.info(fileDir + ": ");
 
-        for (Resource resource : resources) {
+            for (Resource resource : resources) {
 
-            files.add(resource.getFilename());
-            logger.info(resource.getFilename());
+                files.add(resource.getFilename());
+                logger.info(resource.getFilename());
 
 /*            InputStream inStream = resource.getInputStream();
             InputStreamReader inReader = new InputStreamReader(inStream);
@@ -93,9 +94,14 @@ public class ContractAnalyzer {
                 logger.info("read: " + s);
             }
             System.out.println("temp: " + temp);*/
-        }
+            }
 
-        return files;
+            return files;
+        }catch(Exception e) {
+            e.printStackTrace();
+            logger.error(e.getMessage(), e);
+            return null;
+        }
 
     }
 
