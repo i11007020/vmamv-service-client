@@ -45,21 +45,21 @@ public class ContractAnalyzer {
         //mappingSource = readFile_dir(filepath_mappings);
 
 
-        ArrayList<HashMap<String,String>> groovys = new ArrayList<>();
-
-        for(String c: contractFileName){
-            HashMap<String,String> groovy = new HashMap<String,String>();
-            groovy.put("fileName", c);
-            groovy.put("fileContent", getfileContent_groovy(filepath_groovy + c));
-            groovys.add(groovy);
-        }
-
 
         ObjectVendorExtension extension;
 
         if(contractFileName == null || contractFileName.equals("")) {
             extension = new ObjectVendorExtension("x-contract");
         } else {
+            ArrayList<HashMap<String,String>> groovys = new ArrayList<>();
+
+            for(String c: contractFileName){
+                HashMap<String,String> groovy = new HashMap<String,String>();
+                groovy.put("fileName", c);
+                groovy.put("fileContent", getfileContent_groovy(filepath_groovy + c));
+                groovys.add(groovy);
+            }
+
             extension = getContractProperty(groovys, filepath_testXml, appName);
         }
         return Collections.singletonList(extension);
