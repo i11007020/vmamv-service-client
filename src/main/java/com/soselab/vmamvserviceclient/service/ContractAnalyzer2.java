@@ -34,7 +34,7 @@ public class ContractAnalyzer2 {
         ArrayList<String> mappingSource = new ArrayList<>();
 
         contractSource = readFile_dir(filepath_groovy);
-        mappingSource = readFile_dir(filepath_mappings);
+        //mappingSource = readFile_dir(filepath_mappings);
 
         //readfile_testXml(filepath_testXml,appName);
 
@@ -59,7 +59,7 @@ public class ContractAnalyzer2 {
     // 讀取jar檔某目錄下的所有檔案
     public ArrayList<String> readFile_dir(String fileDir) throws IOException {
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        Resource[] resources = resolver.getResources("classpath:/notification/mappings/*.*");
+        Resource[] resources = resolver.getResources("classpath:"+ fileDir + "*.*");
 
         ArrayList<String> files = new ArrayList<>();
 
