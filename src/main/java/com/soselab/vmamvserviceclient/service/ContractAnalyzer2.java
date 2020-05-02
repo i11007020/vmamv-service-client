@@ -126,6 +126,17 @@ public class ContractAnalyzer2 {
             //ObjectVendorExtension oasSourcePath = newOrGetObjProperty(httpRequest.getValue(), sourcePath);
             for( int i = 1; i <= part1.length-1; i++ ) {
 
+
+                logger.info("Collection<Contract>: ");
+                Collection<Contract> ttt = ContractVerifierDslConverter.convertAsCollection(part1[i]);
+
+                //Collection<Contract> ttt = ContractVerifierDslConverter.convertAsCollection(new File("src/test/resources/contracts/cinemacatalog.groovy"));
+
+                //Collection<Contract> ttt2 = ContractVerifierDslConverter.convertAsCollection(br.toString());
+                logger.info("ttt_" + i + ": " + ttt);
+                //logger.info("ttt2: " + ttt2);
+
+
                 ObjectVendorExtension url = this.getUrl(part1[i]);
 
                 ObjectVendorExtension content = new ObjectVendorExtension("contractContent");
@@ -224,16 +235,6 @@ public class ContractAnalyzer2 {
 
             while ((s = br.readLine()) != null)
                 sb.append(s).append("\n");
-
-            logger.info("Collection<Contract>: ");
-            Collection<Contract> ttt = ContractVerifierDslConverter.convertAsCollection(sb.toString());
-
-            //Collection<Contract> ttt = ContractVerifierDslConverter.convertAsCollection(new File("src/test/resources/contracts/cinemacatalog.groovy"));
-
-            //Collection<Contract> ttt2 = ContractVerifierDslConverter.convertAsCollection(br.toString());
-            logger.info("ttt: " + ttt);
-            //logger.info("ttt2: " + ttt2);
-
 
             logger.info("Contract Source: " + "\n" + sb.toString());
 
