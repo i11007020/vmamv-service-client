@@ -126,8 +126,10 @@ public class ContractAnalyzer2 {
             //ObjectVendorExtension oasSourcePath = newOrGetObjProperty(httpRequest.getValue(), sourcePath);
             for( int i = 1; i <= part1.length-1; i++ ) {
 
+                part1[i] = part1[i].trim();
+
                 if(part1[i].endsWith(","))
-                    part1[i].substring(0,part1[i].length()-1);
+                    part1[i] = part1[i].substring(0,part1[i].length()-1);
 
                 logger.info("Collection<Contract>: ");
                 logger.info("Contract Contentt: " + "import org.springframework.cloud.contract.spec.Contract\n" + "[\n" + "Contract.make" + part1[i] + "]");
