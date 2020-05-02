@@ -15,10 +15,7 @@ import springfox.documentation.service.VendorExtension;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.util.*;
 
@@ -227,12 +224,12 @@ public class ContractAnalyzer2 {
 
 
 
-
             while ((s = br.readLine()) != null)
                 sb.append(s).append("\n");
 
             logger.info("Collection<Contract>: ");
-            Collection<Contract> ttt = ContractVerifierDslConverter.convertAsCollection(sb.toString());
+            Collection<Contract> ttt = ContractVerifierDslConverter.convertAsCollection(new File("cinemacatalog.groovy"));
+
             //Collection<Contract> ttt2 = ContractVerifierDslConverter.convertAsCollection(br.toString());
             logger.info("ttt: " + ttt);
             //logger.info("ttt2: " + ttt2);
