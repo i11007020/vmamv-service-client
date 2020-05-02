@@ -233,9 +233,9 @@ public class ContractAnalyzer2 {
 
             logger.info("Collection<Contract>: ");
             Collection<Contract> ttt = ContractVerifierDslConverter.convertAsCollection(sb.toString());
-            Collection<Contract> ttt2 = ContractVerifierDslConverter.convertAsCollection(br.toString());
+            //Collection<Contract> ttt2 = ContractVerifierDslConverter.convertAsCollection(br.toString());
             logger.info("ttt: " + ttt);
-            logger.info("ttt2: " + ttt2);
+            //logger.info("ttt2: " + ttt2);
 
 
             logger.info("Contract Source: " + "\n" + sb.toString());
