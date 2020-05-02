@@ -222,13 +222,13 @@ public class ContractAnalyzer2 {
             String s = "";
             StringBuilder sb = new StringBuilder("");
 
-
-
             while ((s = br.readLine()) != null)
                 sb.append(s).append("\n");
 
             logger.info("Collection<Contract>: ");
-            Collection<Contract> ttt = ContractVerifierDslConverter.convertAsCollection(new File("src/test/resources/contracts/cinemacatalog.groovy"));
+            Collection<Contract> ttt = ContractVerifierDslConverter.convertAsCollection(sb.toString());
+
+            //Collection<Contract> ttt = ContractVerifierDslConverter.convertAsCollection(new File("src/test/resources/contracts/cinemacatalog.groovy"));
 
             //Collection<Contract> ttt2 = ContractVerifierDslConverter.convertAsCollection(br.toString());
             logger.info("ttt: " + ttt);
