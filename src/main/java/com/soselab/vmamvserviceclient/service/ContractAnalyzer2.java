@@ -146,8 +146,20 @@ public class ContractAnalyzer2 {
                     logger.info("ct.getName(): " + ct.getName());
                     logger.info("ct.getOutputMessage(): " + ct.getOutputMessage());
                     logger.info("ct.getPriority(): " + ct.getPriority());
+
                     logger.info("ct.getRequest(): " + ct.getRequest());
+                    logger.info("ct.getRequest().getMethod(): " + ct.getRequest().getMethod());
+                    logger.info("ct.getRequest().getUrl(): " + ct.getRequest().getUrl());
+                    logger.info("ct.getRequest().getProperty(): " + ct.getRequest().getProperty());
+                    logger.info("ct.getRequest().getBody(): " + ct.getRequest().getBody());
+                    logger.info("ct.getRequest().getUrlPath(): " + ct.getRequest().getUrlPath());
+                    logger.info("ct.getRequest().getHeaders(): " + ct.getRequest().getHeaders());
+
                     logger.info("ct.getResponse(): " + ct.getResponse());
+                    logger.info("ct.getResponse().getBody(): " + ct.getResponse().getBody());
+                    logger.info("ct.getResponse().getProperty: " + ct.getResponse().getProperty());
+                    logger.info("ct.getResponse().getStatus: " + ct.getResponse().getStatus());
+                    logger.info("ct.getResponse().getHeaders(): " + ct.getResponse().getHeaders());
 
 
                     ct.getDescription(); //-
