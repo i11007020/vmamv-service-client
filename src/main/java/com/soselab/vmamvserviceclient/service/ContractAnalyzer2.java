@@ -228,7 +228,7 @@ public class ContractAnalyzer2 {
                 sb.append(s).append("\n");
 
             logger.info("Collection<Contract>: ");
-            Collection<Contract> ttt = ContractVerifierDslConverter.convertAsCollection(new File("cinemacatalog.groovy"));
+            Collection<Contract> ttt = ContractVerifierDslConverter.convertAsCollection(new File("src/test/resources/contracts/cinemacatalog.groovy"));
 
             //Collection<Contract> ttt2 = ContractVerifierDslConverter.convertAsCollection(br.toString());
             logger.info("ttt: " + ttt);
