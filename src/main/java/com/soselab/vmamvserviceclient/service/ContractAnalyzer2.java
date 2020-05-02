@@ -128,6 +128,7 @@ public class ContractAnalyzer2 {
 
 
                 logger.info("Collection<Contract>: ");
+                logger.info("Contract Contentt: " + "Contract.make" + part1[i]);
                 Collection<Contract> ttt = ContractVerifierDslConverter.convertAsCollection("Contract.make" + part1[i]);
 
                 //Collection<Contract> ttt = ContractVerifierDslConverter.convertAsCollection(new File("src/test/resources/contracts/cinemacatalog.groovy"));
