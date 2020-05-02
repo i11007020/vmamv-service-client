@@ -148,7 +148,6 @@ public class ContractAnalyzer2 {
                     logger.info("ct.getPriority(): " + ct.getPriority());
                     logger.info("ct.getRequest(): " + ct.getRequest());
                     logger.info("ct.getResponse(): " + ct.getResponse());
-                    logger.info("ct.getMetaClass(): " + ct.getMetaClass());
 
 
                     ct.getDescription(); //-
@@ -160,7 +159,6 @@ public class ContractAnalyzer2 {
                     ct.getPriority(); //-
                     ct.getRequest(); //-
                     ct.getResponse(); //-
-                    ct.getMetaClass();
                 }
 
 
