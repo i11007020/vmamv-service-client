@@ -1,14 +1,11 @@
 package com.soselab.vmamvserviceclient.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soselab.vmamvserviceclient.annotation.*;
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.core.io.Resource;
@@ -39,9 +36,6 @@ import java.io.*;
 public class ContractAnalyzer {
     private static final Logger logger = LoggerFactory.getLogger(ContractAnalyzer.class);
     private static final String GET = "get", POST = "post", PUT = "put", PATCH = "patch", DELETE = "delete";
-    @Autowired
-    private ObjectMapper mapper;
-
 
     public List<VendorExtension> swaggerExtension(String filepath_groovy, String filepath_testXml, String appName) throws Exception {
         ArrayList<String> contractFileName = new ArrayList<>();
@@ -137,14 +131,6 @@ public class ContractAnalyzer {
 
             //ObjectVendorExtension oasSourcePath = newOrGetObjProperty(httpRequest.getValue(), sourcePath);
             for( int i = 1; i <= part1.length-1; i++ ) {
-
-                Map<String, Object> contractMap = null;
-                try {
-                    contractMap = mapper.readValue(part1[i], new TypeReference<Map<String, Object>>(){});
-                    System.out.println("contractMap: " + contractMap);
-                } catch (IOException e) {
-                    logger.error(e.getMessage(), e);
-                }
 
                 ObjectVendorExtension url = this.getUrl(part1[i]);
 

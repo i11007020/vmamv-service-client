@@ -2,6 +2,7 @@ package com.soselab.vmamvserviceclient.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cloud.contract.verifier.messaging.internal.ContractVerifierObjectMapper;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.w3c.dom.Document;
@@ -20,13 +21,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.*;
-import java.io.File;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
+
+import org.springframework.cloud.contract.spec.Contract;
+import org.springframework.cloud.contract.verifier.util.ContractVerifierDslConverter;
 
 public class ContractAnalyzer2 {
 
-    private static final Logger logger = LoggerFactory.getLogger(ContractAnalyzer2.class);
+    private static final Logger logger = LoggerFactory.getLogger(ContractAnalyzer.class);
     private static final String GET = "get", POST = "post", PUT = "put", PATCH = "patch", DELETE = "delete";
 
     public List<VendorExtension> swaggerExtension(String filepath_groovy, String filepath_testXml, String appName) throws Exception {
@@ -37,21 +38,25 @@ public class ContractAnalyzer2 {
         //mappingSource = readFile_dir(filepath_mappings);
 
 
-        ArrayList<HashMap<String,String>> groovys = new ArrayList<>();
+        ContractVerifierObjectMapper contractVerifierObjectMapper = new ContractVerifierObjectMapper();
 
-        for(String c: contractFileName){
-            HashMap<String,String> groovy = new HashMap<String,String>();
-            groovy.put("fileName", c);
-            groovy.put("fileContent", getfileContent_groovy(filepath_groovy + c));
-            groovys.add(groovy);
-        }
+
 
 
         ObjectVendorExtension extension;
 
-        if(contractFileName == null || contractFileName.equals("")) {
+        if(contractFileName == null || contractFileName.size() == 0) {
             extension = new ObjectVendorExtension("x-contract");
         } else {
+            ArrayList<HashMap<String,String>> groovys = new ArrayList<>();
+
+            for(String c: contractFileName){
+                HashMap<String,String> groovy = new HashMap<String,String>();
+                groovy.put("fileName", c);
+                groovy.put("fileContent", getfileContent_groovy(filepath_groovy + c));
+                groovys.add(groovy);
+            }
+
             extension = getContractProperty(groovys, filepath_testXml, appName);
         }
         return Collections.singletonList(extension);
@@ -61,18 +66,19 @@ public class ContractAnalyzer2 {
 
 
     // 讀取jar檔某目錄下的所有檔案
-    public ArrayList<String> readFile_dir(String fileDir) throws IOException {
-        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        Resource[] resources = resolver.getResources("classpath:"+ fileDir + "*.*");
+    public ArrayList<String> readFile_dir(String fileDir) {
+        try {
+            PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+            Resource[] resources = resolver.getResources("classpath:" + fileDir + "*.*");
 
-        ArrayList<String> files = new ArrayList<>();
+            ArrayList<String> files = new ArrayList<>();
 
-        logger.info(fileDir + ": ");
+            logger.info(fileDir + ": ");
 
-        for (Resource resource : resources) {
+            for (Resource resource : resources) {
 
-            files.add(resource.getFilename());
-            logger.info(resource.getFilename());
+                files.add(resource.getFilename());
+                logger.info(resource.getFilename());
 
 /*            InputStream inStream = resource.getInputStream();
             InputStreamReader inReader = new InputStreamReader(inStream);
@@ -85,9 +91,14 @@ public class ContractAnalyzer2 {
                 logger.info("read: " + s);
             }
             System.out.println("temp: " + temp);*/
-        }
+            }
 
-        return files;
+            return files;
+        }catch(Exception e) {
+            e.printStackTrace();
+            logger.error(e.getMessage(), e);
+            return null;
+        }
 
     }
 
@@ -213,8 +224,19 @@ public class ContractAnalyzer2 {
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String s = "";
             StringBuilder sb = new StringBuilder("");
+
+
+
+
             while ((s = br.readLine()) != null)
                 sb.append(s).append("\n");
+
+            logger.info("Collection<Contract>: ");
+            Collection<Contract> ttt = ContractVerifierDslConverter.convertAsCollection(sb.toString());
+            Collection<Contract> ttt2 = ContractVerifierDslConverter.convertAsCollection(br.toString());
+            logger.info("ttt: " + ttt);
+            logger.info("ttt2: " + ttt2);
+
 
             logger.info("Contract Source: " + "\n" + sb.toString());
 
