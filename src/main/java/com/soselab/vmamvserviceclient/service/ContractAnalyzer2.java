@@ -149,7 +149,10 @@ public class ContractAnalyzer2 {
 
                     logger.info("ct.getRequest(): " + ct.getRequest());
                     logger.info("ct.getRequest().getMethod(): " + ct.getRequest().getMethod());
+                    logger.info("ct.getRequest().getMethod().getClientValue(): " + ct.getRequest().getMethod().getClientValue());
                     logger.info("ct.getRequest().getUrl(): " + ct.getRequest().getUrl());
+                    logger.info("ct.getRequest().getUrl().getQueryParameters(): " + ct.getRequest().getUrl().getQueryParameters());
+                    logger.info("ct.getRequest().getUrl().getClientValue(): " + ct.getRequest().getUrl().getClientValue());
                     logger.info("ct.getRequest().getProperty(): " + ct.getRequest().getProperty());
                     logger.info("ct.getRequest().getBody(): " + ct.getRequest().getBody());
                     logger.info("ct.getRequest().getUrlPath(): " + ct.getRequest().getUrlPath());
@@ -157,8 +160,10 @@ public class ContractAnalyzer2 {
 
                     logger.info("ct.getResponse(): " + ct.getResponse());
                     logger.info("ct.getResponse().getBody(): " + ct.getResponse().getBody());
+                    logger.info("ct.getResponse().getBody().getClientValue(): " + ct.getResponse().getBody().getClientValue());
                     logger.info("ct.getResponse().getProperty: " + ct.getResponse().getProperty());
                     logger.info("ct.getResponse().getStatus: " + ct.getResponse().getStatus());
+                    logger.info("ct.getResponse().getStatus.getClientValue(): " + ct.getResponse().getStatus().getClientValue());
                     logger.info("ct.getResponse().getHeaders(): " + ct.getResponse().getHeaders());
 
 
