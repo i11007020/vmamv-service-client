@@ -131,15 +131,37 @@ public class ContractAnalyzer2 {
                 if(part1[i].endsWith(","))
                     part1[i] = part1[i].substring(0,part1[i].length()-1);
 
-                logger.info("Collection<Contract>: ");
-                logger.info("Contract Contentt: " + "import org.springframework.cloud.contract.spec.Contract\n" + "[\n" + "Contract.make" + part1[i] + "\n]");
-                Collection<Contract> ttt = ContractVerifierDslConverter.convertAsCollection("import org.springframework.cloud.contract.spec.Contract\n" + "[\n" + "Contract.make" + part1[i] + "\n]");
+                logger.info("Collection<Contract>_" + fileName + ": ");
+                logger.info("Contract Content_" + i + ": " + "import org.springframework.cloud.contract.spec.Contract\n" + "[\n" + "Contract.make" + part1[i] + "\n]");
+                Collection<Contract> collectionContract = ContractVerifierDslConverter.convertAsCollection("import org.springframework.cloud.contract.spec.Contract\n" + "[\n" + "Contract.make" + part1[i] + "\n]");
 
-                //Collection<Contract> ttt = ContractVerifierDslConverter.convertAsCollection(new File("src/test/resources/contracts/cinemacatalog.groovy"));
+                logger.info("collectionContract_" + i + ": " + collectionContract);
 
-                //Collection<Contract> ttt2 = ContractVerifierDslConverter.convertAsCollection(br.toString());
-                logger.info("ttt_" + i + ": " + ttt);
-                //logger.info("ttt2: " + ttt2);
+                if(collectionContract.iterator().hasNext()){
+                    Contract ct = collectionContract.iterator().next();
+                    logger.info("ct.getDescription(): " + ct.getDescription());
+                    logger.info("ct.getIgnored(): " + ct.getIgnored());
+                    logger.info("ct.getInput(): " + ct.getInput());
+                    logger.info("ct.getLabel(): " + ct.getLabel());
+                    logger.info("ct.getName(): " + ct.getName());
+                    logger.info("ct.getOutputMessage(): " + ct.getOutputMessage());
+                    logger.info("ct.getPriority(): " + ct.getPriority());
+                    logger.info("ct.getRequest(): " + ct.getRequest());
+                    logger.info("ct.getResponse(): " + ct.getResponse());
+                    logger.info("ct.getMetaClass(): " + ct.getMetaClass());
+
+
+                    ct.getDescription(); //-
+                    ct.getIgnored(); //-
+                    ct.getInput(); //-
+                    ct.getLabel(); //-
+                    ct.getName(); //-
+                    ct.getOutputMessage(); //-
+                    ct.getPriority(); //-
+                    ct.getRequest(); //-
+                    ct.getResponse(); //-
+                    ct.getMetaClass();
+                }
 
 
                 ObjectVendorExtension url = this.getUrl(part1[i]);
