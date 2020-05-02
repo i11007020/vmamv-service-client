@@ -132,7 +132,7 @@ public class ContractAnalyzer2 {
                     part1[i] = part1[i].substring(0,part1[i].length()-1);
 
                 logger.info("Collection<Contract>: ");
-                logger.info("Contract Contentt: " + "import org.springframework.cloud.contract.spec.Contract\n" + "[\n" + "Contract.make" + part1[i] + "]");
+                logger.info("Contract Contentt: " + "import org.springframework.cloud.contract.spec.Contract\n" + "[\n" + "Contract.make" + part1[i] + "\n]");
                 Collection<Contract> ttt = ContractVerifierDslConverter.convertAsCollection("import org.springframework.cloud.contract.spec.Contract\n" + "[\n" + "Contract.make" + part1[i] + "]");
 
                 //Collection<Contract> ttt = ContractVerifierDslConverter.convertAsCollection(new File("src/test/resources/contracts/cinemacatalog.groovy"));
