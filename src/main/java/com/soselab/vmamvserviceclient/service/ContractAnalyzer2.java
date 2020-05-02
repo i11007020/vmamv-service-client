@@ -139,32 +139,35 @@ public class ContractAnalyzer2 {
 
                 if(collectionContract.iterator().hasNext()){
                     Contract ct = collectionContract.iterator().next();
-                    logger.info("ct.getDescription(): " + ct.getDescription());
-                    logger.info("ct.getIgnored(): " + ct.getIgnored());
-                    logger.info("ct.getInput(): " + ct.getInput());
-                    logger.info("ct.getLabel(): " + ct.getLabel());
-                    logger.info("ct.getName(): " + ct.getName());
-                    logger.info("ct.getOutputMessage(): " + ct.getOutputMessage());
-                    logger.info("ct.getPriority(): " + ct.getPriority());
+                    System.out.println("ct.getDescription(): " + ct.getDescription());
+                    System.out.println("ct.getIgnored(): " + ct.getIgnored());
+                    System.out.println("ct.getInput(): " + ct.getInput());
+                    System.out.println("ct.getLabel(): " + ct.getLabel());
+                    System.out.println("ct.getName(): " + ct.getName());
+                    System.out.println("ct.getOutputMessage(): " + ct.getOutputMessage());
+                    System.out.println("ct.getPriority(): " + ct.getPriority());
 
-                    logger.info("ct.getRequest(): " + ct.getRequest());
-                    logger.info("ct.getRequest().getMethod(): " + ct.getRequest().getMethod());
-                    logger.info("ct.getRequest().getMethod().getClientValue(): " + ct.getRequest().getMethod().getClientValue());
-                    logger.info("ct.getRequest().getUrl(): " + ct.getRequest().getUrl());
-                    logger.info("ct.getRequest().getUrl().getQueryParameters(): " + ct.getRequest().getUrl().getQueryParameters());
-                    logger.info("ct.getRequest().getUrl().getClientValue(): " + ct.getRequest().getUrl().getClientValue());
-                    logger.info("ct.getRequest().getProperty(): " + ct.getRequest().getProperty());
-                    logger.info("ct.getRequest().getBody(): " + ct.getRequest().getBody());
-                    logger.info("ct.getRequest().getUrlPath(): " + ct.getRequest().getUrlPath());
-                    logger.info("ct.getRequest().getHeaders(): " + ct.getRequest().getHeaders());
+                    System.out.println("ct.getRequest(): " + ct.getRequest());
+                    System.out.println("ct.getRequest().getMethod(): " + ct.getRequest().getMethod());
+                    System.out.println("ct.getRequest().getMethod().getClientValue(): " + ct.getRequest().getMethod().getClientValue()); //***
+                    System.out.println("ct.getRequest().getUrl(): " + ct.getRequest().getUrl());
+                    System.out.println("ct.getRequest().getUrl().getQueryParameters(): " + ct.getRequest().getUrl().getQueryParameters());
+                    System.out.println("ct.getRequest().getUrl().getQueryParameters().getParameters(): " + ct.getRequest().getUrl().getQueryParameters().getParameters());
+                    System.out.println("ct.getRequest().getUrl().getQueryParameters().getParameters().get(0).getName(): " + ct.getRequest().getUrl().getQueryParameters().getParameters().get(0).getName());
+                    System.out.println("ct.getRequest().getUrl().getQueryParameters().getParameters().get(0).getClientValue(): " + ct.getRequest().getUrl().getQueryParameters().getParameters().get(0).getClientValue());
+                    System.out.println("ct.getRequest().getUrl().getClientValue(): " + ct.getRequest().getUrl().getClientValue()); //***
+                    System.out.println("ct.getRequest().getProperty(): " + ct.getRequest().getProperty());
+                    System.out.println("ct.getRequest().getBody(): " + ct.getRequest().getBody());
+                    System.out.println("ct.getRequest().getUrlPath(): " + ct.getRequest().getUrlPath());
+                    System.out.println("ct.getRequest().getHeaders(): " + ct.getRequest().getHeaders());
 
-                    logger.info("ct.getResponse(): " + ct.getResponse());
-                    logger.info("ct.getResponse().getBody(): " + ct.getResponse().getBody());
-                    logger.info("ct.getResponse().getBody().getClientValue(): " + ct.getResponse().getBody().getClientValue());
-                    logger.info("ct.getResponse().getProperty: " + ct.getResponse().getProperty());
-                    logger.info("ct.getResponse().getStatus: " + ct.getResponse().getStatus());
-                    logger.info("ct.getResponse().getStatus.getClientValue(): " + ct.getResponse().getStatus().getClientValue());
-                    logger.info("ct.getResponse().getHeaders(): " + ct.getResponse().getHeaders());
+                    System.out.println("ct.getResponse(): " + ct.getResponse());
+                    System.out.println("ct.getResponse().getBody(): " + ct.getResponse().getBody());
+                    System.out.println("ct.getResponse().getBody().getClientValue(): " + ct.getResponse().getBody().getClientValue()); //***
+                    System.out.println("ct.getResponse().getProperty: " + ct.getResponse().getProperty());
+                    System.out.println("ct.getResponse().getStatus: " + ct.getResponse().getStatus());
+                    System.out.println("ct.getResponse().getStatus.getClientValue(): " + ct.getResponse().getStatus().getClientValue()); //***
+                    System.out.println("ct.getResponse().getHeaders(): " + ct.getResponse().getHeaders());
 
 
                     ct.getDescription(); //-
