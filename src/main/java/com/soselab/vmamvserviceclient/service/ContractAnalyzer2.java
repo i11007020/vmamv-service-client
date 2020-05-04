@@ -407,12 +407,19 @@ public class ContractAnalyzer2 {
         ObjectVendorExtension resultResponse = new ObjectVendorExtension("response");
 
         if (ct.getResponse().getBody() != null)
-            resultResponse.addProperty(new StringVendorExtension("body", ct.getResponse().getBody().getClientValue().toString() ));
+            resultResponse.addProperty( new StringVendorExtension("body", ct.getResponse().getBody().getClientValue().toString()) );
+        else
+            resultResponse.addProperty( new StringVendorExtension("body", "null") );
 
         if (ct.getResponse().getStatus() != null)
-            resultResponse.addProperty(new StringVendorExtension("status", ct.getResponse().getStatus().getClientValue().toString() ));
+            resultResponse.addProperty( new StringVendorExtension("status", ct.getResponse().getStatus().getClientValue().toString()) );
+        else
+            resultResponse.addProperty( new StringVendorExtension("status", "null") );
 
-        resultResponse.addProperty(new StringVendorExtension("header", ct.getResponse().getHeaders().toString() ));
+        if(ct.getResponse().getHeaders() != null)
+            resultResponse.addProperty( new StringVendorExtension("header", ct.getResponse().getHeaders().toString() ));
+        else
+            resultResponse.addProperty( new StringVendorExtension("header", "null") );
 
 
         return resultResponse;
