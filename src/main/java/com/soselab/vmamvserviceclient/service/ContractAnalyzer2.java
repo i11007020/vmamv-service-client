@@ -145,9 +145,9 @@ public class ContractAnalyzer2 {
                     System.out.println("ct.getName(): " + ct.getName());
                     System.out.println("ct.getOutputMessage(): " + ct.getOutputMessage());
                     System.out.println("ct.getPriority(): " + ct.getPriority());*/
-/*
 
-*/
+
+                    System.out.println("ct.getIgnored(): " + ct.getIgnored()); //***
 /*                    System.out.println("ct.getRequest(): " + ct.getRequest());
                     System.out.println("ct.getRequest().getMethod(): " + ct.getRequest().getMethod());*/
 
@@ -168,10 +168,10 @@ public class ContractAnalyzer2 {
                    // System.out.println("ct.getRequest().getHeaders(): " + ct.getRequest().getHeaders());
 
 
-                    System.out.println("ct.getResponse(): " + ct.getResponse());
-                    System.out.println("ct.getResponse().getBody(): " + ct.getResponse().getBody());
+                    //System.out.println("ct.getResponse(): " + ct.getResponse());
+                    //System.out.println("ct.getResponse().getBody(): " + ct.getResponse().getBody());
 
-                 //   System.out.println("ct.getResponse().getBody().getClientValue(): " + ct.getResponse().getBody().getClientValue()); //***
+                    System.out.println("ct.getResponse().getBody().getClientValue(): " + ct.getResponse().getBody().getClientValue()); //***
 
 /*                    System.out.println("ct.getResponse().getProperty: " + ct.getResponse().getProperty());
                     System.out.println("ct.getResponse().getStatus: " + ct.getResponse().getStatus());*/
