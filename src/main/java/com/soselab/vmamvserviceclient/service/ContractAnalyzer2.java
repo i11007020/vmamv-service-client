@@ -125,11 +125,11 @@ public class ContractAnalyzer2 {
 
             for( int i = 1; i <= part1.length-1; i++ ) {
 
-/*                part1[i] = part1[i].trim();
+                part1[i] = part1[i].trim();
 
                 if(part1[i].endsWith(","))
                     part1[i] = part1[i].substring(0,part1[i].length()-1);
-
+/*
                 logger.info("Collection<Contract>_" + fileName + ": ");
                 logger.info("Contract Content_" + i + ": " + "import org.springframework.cloud.contract.spec.Contract\n" + "[\n" + "Contract.make" + part1[i] + "\n]");
                 Collection<Contract> collectionContract = ContractVerifierDslConverter.convertAsCollection("import org.springframework.cloud.contract.spec.Contract\n" + "[\n" + "Contract.make" + part1[i] + "\n]");
