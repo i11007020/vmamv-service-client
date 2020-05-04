@@ -165,13 +165,13 @@ public class ContractAnalyzer2 {
                     System.out.println("ct.getRequest().getBody(): " + ct.getRequest().getBody());
                     System.out.println("ct.getRequest().getUrlPath(): " + ct.getRequest().getUrlPath());*/
 
-                    System.out.println("ct.getRequest().getHeaders(): " + ct.getRequest().getHeaders()); //***
+                   // System.out.println("ct.getRequest().getHeaders(): " + ct.getRequest().getHeaders());
 
 
-/*                    System.out.println("ct.getResponse(): " + ct.getResponse());
-                    System.out.println("ct.getResponse().getBody(): " + ct.getResponse().getBody());*/
+                    System.out.println("ct.getResponse(): " + ct.getResponse());
+                    System.out.println("ct.getResponse().getBody(): " + ct.getResponse().getBody());
 
-                    System.out.println("ct.getResponse().getBody().getClientValue(): " + ct.getResponse().getBody().getClientValue()); //***
+                 //   System.out.println("ct.getResponse().getBody().getClientValue(): " + ct.getResponse().getBody().getClientValue()); //***
 
 /*                    System.out.println("ct.getResponse().getProperty: " + ct.getResponse().getProperty());
                     System.out.println("ct.getResponse().getStatus: " + ct.getResponse().getStatus());*/
