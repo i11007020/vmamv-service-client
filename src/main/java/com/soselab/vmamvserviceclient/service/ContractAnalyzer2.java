@@ -379,6 +379,8 @@ public class ContractAnalyzer2 {
 
         if (ct.getRequest().getMethod() != null)
             resultRequest.addProperty( new StringVendorExtension("method", ct.getRequest().getMethod().getClientValue().toString()) );
+        else
+            resultRequest.addProperty( new StringVendorExtension("method", "null") );
 
         if (ct.getRequest().getUrl() != null) {
             if (ct.getRequest().getUrl().getQueryParameters() != null) {
@@ -392,7 +394,10 @@ public class ContractAnalyzer2 {
             }
         }
 
-        resultRequest.addProperty( new StringVendorExtension("header", ct.getRequest().getHeaders().toString()) );
+        if (ct.getRequest().getHeaders() != null)
+            resultRequest.addProperty( new StringVendorExtension("header", ct.getRequest().getHeaders().toString()) );
+        else
+            resultRequest.addProperty( new StringVendorExtension("header", "null") );
 
 
         return resultRequest;
