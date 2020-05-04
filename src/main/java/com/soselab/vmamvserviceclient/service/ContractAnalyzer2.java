@@ -139,33 +139,6 @@ public class ContractAnalyzer2 {
                 if(collectionContract.iterator().hasNext()) {
                     Contract ct = collectionContract.iterator().next();
 
-                    System.out.println("ct.getIgnored(): " + ct.getIgnored()); //***
-                    System.out.println("ct.getDescription(): " + ct.getDescription()); //***
-                    System.out.println("ct.getName(): " + ct.getName()); //***
-
-                    if (ct.getRequest().getMethod() != null)
-                        System.out.println("ct.getRequest().getMethod().getClientValue(): " + ct.getRequest().getMethod().getClientValue()); //***
-
-                    if (ct.getRequest().getUrl() != null) {
-                        System.out.println("ct.getRequest().getUrl().getClientValue(): " + ct.getRequest().getUrl().getClientValue()); //***
-                        if (ct.getRequest().getUrl().getQueryParameters() != null) {
-                            System.out.println("ct.getRequest().getUrl().getQueryParameters().getParameters().get(0).getName(): " + ct.getRequest().getUrl().getQueryParameters().getParameters().get(0).getName()); //***
-                            System.out.println("ct.getRequest().getUrl().getQueryParameters().getParameters().get(0).getClientValue(): " + ct.getRequest().getUrl().getQueryParameters().getParameters().get(0).getClientValue()); //***
-                        }
-                    }
-
-                    System.out.println("ct.getRequest().getHeaders(): " + ct.getRequest().getHeaders());
-
-
-                    if (ct.getResponse().getBody() != null)
-                        System.out.println("ct.getResponse().getBody().getClientValue(): " + ct.getResponse().getBody().getClientValue()); //***
-
-                    if (ct.getResponse().getStatus() != null)
-                        System.out.println("ct.getResponse().getStatus().getClientValue(): " + ct.getResponse().getStatus().getClientValue()); //***
-
-                    System.out.println("ct.getResponse().getHeaders(): " + ct.getResponse().getHeaders());
-
-
                     ObjectVendorExtension url = new ObjectVendorExtension(ct.getRequest().getUrl().getClientValue().toString());
                     ObjectVendorExtension content = new ObjectVendorExtension("contractContent");
                     StringVendorExtension ignored = new StringVendorExtension("ignored", String.valueOf(ct.getIgnored()));
@@ -174,9 +147,6 @@ public class ContractAnalyzer2 {
 
                     ObjectVendorExtension request = this.getRequest(ct);
                     ObjectVendorExtension response = this.getResponse(ct);
-
-
-
 
                     ObjectVendorExtension test = new ObjectVendorExtension("testResult");
                     StringVendorExtension started;
@@ -379,8 +349,6 @@ public class ContractAnalyzer2 {
 
         if (ct.getRequest().getMethod() != null)
             resultRequest.addProperty( new StringVendorExtension("method", ct.getRequest().getMethod().getClientValue().toString()) );
-        else
-            resultRequest.addProperty( new StringVendorExtension("method", "null") );
 
         if (ct.getRequest().getUrl() != null) {
             if (ct.getRequest().getUrl().getQueryParameters() != null) {
@@ -396,8 +364,6 @@ public class ContractAnalyzer2 {
 
         if (ct.getRequest().getHeaders() != null)
             resultRequest.addProperty( new StringVendorExtension("header", ct.getRequest().getHeaders().toString()) );
-        else
-            resultRequest.addProperty( new StringVendorExtension("header", "null") );
 
 
         return resultRequest;
@@ -408,18 +374,13 @@ public class ContractAnalyzer2 {
 
         if (ct.getResponse().getBody() != null)
             resultResponse.addProperty( new StringVendorExtension("body", ct.getResponse().getBody().getClientValue().toString()) );
-        else
-            resultResponse.addProperty( new StringVendorExtension("body", "null") );
 
         if (ct.getResponse().getStatus() != null)
             resultResponse.addProperty( new StringVendorExtension("status", ct.getResponse().getStatus().getClientValue().toString()) );
-        else
-            resultResponse.addProperty( new StringVendorExtension("status", "null") );
 
         if(ct.getResponse().getHeaders() != null)
             resultResponse.addProperty( new StringVendorExtension("header", ct.getResponse().getHeaders().toString() ));
-        else
-            resultResponse.addProperty( new StringVendorExtension("header", "null") );
+
 
 
         return resultResponse;
