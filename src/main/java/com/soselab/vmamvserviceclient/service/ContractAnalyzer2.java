@@ -36,11 +36,6 @@ public class ContractAnalyzer2 {
         //mappingSource = readFile_dir(filepath_mappings);
 
 
-        ContractVerifierObjectMapper contractVerifierObjectMapper = new ContractVerifierObjectMapper();
-
-
-
-
         ObjectVendorExtension extension;
 
         if(contractFileName == null || contractFileName.size() == 0) {
@@ -78,17 +73,6 @@ public class ContractAnalyzer2 {
                 files.add(resource.getFilename());
                 logger.info(resource.getFilename());
 
-/*            InputStream inStream = resource.getInputStream();
-            InputStreamReader inReader = new InputStreamReader(inStream);
-            Scanner scan = new Scanner(inReader);
-            String temp = "";
-            while (scan.hasNext()) {
-                String s = scan.next();
-                temp += "-" + s;
-                System.out.println("read: " + s);
-                logger.info("read: " + s);
-            }
-            System.out.println("temp: " + temp);*/
             }
 
             return files;
@@ -269,7 +253,6 @@ public class ContractAnalyzer2 {
 
             doc.getDocumentElement().normalize();
             logger.info("Root element :" + doc.getDocumentElement().getNodeName());
-            //System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 
             NodeList nList = doc.getElementsByTagName("class");
 
