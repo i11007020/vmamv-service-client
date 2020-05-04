@@ -135,40 +135,40 @@ public class ContractAnalyzer2 {
                 Collection<Contract> collectionContract = ContractVerifierDslConverter.convertAsCollection("import org.springframework.cloud.contract.spec.Contract\n" + "[\n" + "Contract.make" + part1[i] + "\n]");
 
                 logger.info("collectionContract_" + i + ": " + collectionContract);
-/*
+
                 if(collectionContract.iterator().hasNext()){
                     Contract ct = collectionContract.iterator().next();
-                    System.out.println("ct.getDescription(): " + ct.getDescription());
+/*                    System.out.println("ct.getDescription(): " + ct.getDescription());
                     System.out.println("ct.getIgnored(): " + ct.getIgnored());
                     System.out.println("ct.getInput(): " + ct.getInput());
                     System.out.println("ct.getLabel(): " + ct.getLabel());
                     System.out.println("ct.getName(): " + ct.getName());
                     System.out.println("ct.getOutputMessage(): " + ct.getOutputMessage());
-                    System.out.println("ct.getPriority(): " + ct.getPriority());
+                    System.out.println("ct.getPriority(): " + ct.getPriority());*/
 
-                    System.out.println("ct.getRequest(): " + ct.getRequest());
-                    System.out.println("ct.getRequest().getMethod(): " + ct.getRequest().getMethod());
+/*                    System.out.println("ct.getRequest(): " + ct.getRequest());
+                    System.out.println("ct.getRequest().getMethod(): " + ct.getRequest().getMethod());*/
                     System.out.println("ct.getRequest().getMethod().getClientValue(): " + ct.getRequest().getMethod().getClientValue()); //***
-                    System.out.println("ct.getRequest().getUrl(): " + ct.getRequest().getUrl());
+/*                    System.out.println("ct.getRequest().getUrl(): " + ct.getRequest().getUrl());
                     System.out.println("ct.getRequest().getUrl().getQueryParameters(): " + ct.getRequest().getUrl().getQueryParameters());
-                    System.out.println("ct.getRequest().getUrl().getQueryParameters().getParameters(): " + ct.getRequest().getUrl().getQueryParameters().getParameters());
+                    System.out.println("ct.getRequest().getUrl().getQueryParameters().getParameters(): " + ct.getRequest().getUrl().getQueryParameters().getParameters());*/
                     System.out.println("ct.getRequest().getUrl().getQueryParameters().getParameters().get(0).getName(): " + ct.getRequest().getUrl().getQueryParameters().getParameters().get(0).getName()); //***
                     System.out.println("ct.getRequest().getUrl().getQueryParameters().getParameters().get(0).getClientValue(): " + ct.getRequest().getUrl().getQueryParameters().getParameters().get(0).getClientValue()); //***
                     System.out.println("ct.getRequest().getUrl().getClientValue(): " + ct.getRequest().getUrl().getClientValue()); //***
-                    System.out.println("ct.getRequest().getProperty(): " + ct.getRequest().getProperty());
+/*                    System.out.println("ct.getRequest().getProperty(): " + ct.getRequest().getProperty());
                     System.out.println("ct.getRequest().getBody(): " + ct.getRequest().getBody());
-                    System.out.println("ct.getRequest().getUrlPath(): " + ct.getRequest().getUrlPath());
-                    System.out.println("ct.getRequest().getHeaders(): " + ct.getRequest().getHeaders());
+                    System.out.println("ct.getRequest().getUrlPath(): " + ct.getRequest().getUrlPath());*/
+                    System.out.println("ct.getRequest().getHeaders(): " + ct.getRequest().getHeaders()); //***
 
-                    System.out.println("ct.getResponse(): " + ct.getResponse());
-                    System.out.println("ct.getResponse().getBody(): " + ct.getResponse().getBody());
+/*                    System.out.println("ct.getResponse(): " + ct.getResponse());
+                    System.out.println("ct.getResponse().getBody(): " + ct.getResponse().getBody());*/
                     System.out.println("ct.getResponse().getBody().getClientValue(): " + ct.getResponse().getBody().getClientValue()); //***
-                    System.out.println("ct.getResponse().getProperty: " + ct.getResponse().getProperty());
-                    System.out.println("ct.getResponse().getStatus: " + ct.getResponse().getStatus());
+/*                    System.out.println("ct.getResponse().getProperty: " + ct.getResponse().getProperty());
+                    System.out.println("ct.getResponse().getStatus: " + ct.getResponse().getStatus());*/
                     System.out.println("ct.getResponse().getStatus.getClientValue(): " + ct.getResponse().getStatus().getClientValue()); //***
-                    System.out.println("ct.getResponse().getHeaders(): " + ct.getResponse().getHeaders());
+                    System.out.println("ct.getResponse().getHeaders(): " + ct.getResponse().getHeaders()); // ***
 
-                }*/
+                }
 
 
                 ObjectVendorExtension url = this.getUrl(part1[i]);
