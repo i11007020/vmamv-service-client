@@ -125,7 +125,7 @@ public class ContractAnalyzer2 {
 
             for( int i = 1; i <= part1.length-1; i++ ) {
 
-                part1[i] = part1[i].trim();
+/*                part1[i] = part1[i].trim();
 
                 if(part1[i].endsWith(","))
                     part1[i] = part1[i].substring(0,part1[i].length()-1);
@@ -168,7 +168,7 @@ public class ContractAnalyzer2 {
                     System.out.println("ct.getResponse().getStatus.getClientValue(): " + ct.getResponse().getStatus().getClientValue()); //***
                     System.out.println("ct.getResponse().getHeaders(): " + ct.getResponse().getHeaders());
 
-                }
+                }*/
 
 
                 ObjectVendorExtension url = this.getUrl(part1[i]);
