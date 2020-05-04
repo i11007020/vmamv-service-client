@@ -149,25 +149,25 @@ public class ContractAnalyzer2 {
 
 */
 /*                    System.out.println("ct.getRequest(): " + ct.getRequest());
-                    System.out.println("ct.getRequest().getMethod(): " + ct.getRequest().getMethod());*//*
+                    System.out.println("ct.getRequest().getMethod(): " + ct.getRequest().getMethod());*/
 
                     System.out.println("ct.getRequest().getMethod().getClientValue(): " + ct.getRequest().getMethod().getClientValue()); //***
-*/
+
 /*                    System.out.println("ct.getRequest().getUrl(): " + ct.getRequest().getUrl());
                     System.out.println("ct.getRequest().getUrl().getQueryParameters(): " + ct.getRequest().getUrl().getQueryParameters());
-                    System.out.println("ct.getRequest().getUrl().getQueryParameters().getParameters(): " + ct.getRequest().getUrl().getQueryParameters().getParameters());*//*
+                    System.out.println("ct.getRequest().getUrl().getQueryParameters().getParameters(): " + ct.getRequest().getUrl().getQueryParameters().getParameters());*/
 
                     System.out.println("ct.getRequest().getUrl().getQueryParameters().getParameters().get(0).getName(): " + ct.getRequest().getUrl().getQueryParameters().getParameters().get(0).getName()); //***
                     System.out.println("ct.getRequest().getUrl().getQueryParameters().getParameters().get(0).getClientValue(): " + ct.getRequest().getUrl().getQueryParameters().getParameters().get(0).getClientValue()); //***
                     System.out.println("ct.getRequest().getUrl().getClientValue(): " + ct.getRequest().getUrl().getClientValue()); //***
-*/
+
 /*                    System.out.println("ct.getRequest().getProperty(): " + ct.getRequest().getProperty());
                     System.out.println("ct.getRequest().getBody(): " + ct.getRequest().getBody());
-                    System.out.println("ct.getRequest().getUrlPath(): " + ct.getRequest().getUrlPath());*//*
+                    System.out.println("ct.getRequest().getUrlPath(): " + ct.getRequest().getUrlPath());*/
 
                     System.out.println("ct.getRequest().getHeaders(): " + ct.getRequest().getHeaders()); //***
 
-*/
+
 /*                    System.out.println("ct.getResponse(): " + ct.getResponse());
                     System.out.println("ct.getResponse().getBody(): " + ct.getResponse().getBody());*//*
 
