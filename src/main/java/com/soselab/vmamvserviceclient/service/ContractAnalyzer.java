@@ -116,6 +116,8 @@ public class ContractAnalyzer {
             contractContent = fileContent.substring(fileContent.indexOf("[") + 1, fileContent.lastIndexOf("]"));
             String [] part1 = contractContent.split("Contract.make");
 
+            ArrayList<String> temp = new ArrayList<>();
+
             System.out.println("part1.length: " + part1.length);
 
             for( int i = 1; i < part1.length; i++ ) {
@@ -133,7 +135,12 @@ public class ContractAnalyzer {
                 if(collectionContract.iterator().hasNext()) {
                     Contract ct = collectionContract.iterator().next();
 
-                    ObjectVendorExtension url = new ObjectVendorExtension(ct.getRequest().getUrl().getClientValue().toString() + "_" + i);
+                    ObjectVendorExtension url;
+                    if(temp.contains(ct.getRequest().getUrl().getClientValue().toString()))
+                        url = new ObjectVendorExtension(ct.getRequest().getUrl().getClientValue().toString() + "_" + (i-1));
+                    else
+                        url = new ObjectVendorExtension(ct.getRequest().getUrl().getClientValue().toString());
+
                     ObjectVendorExtension content = new ObjectVendorExtension("contractContent");
                     StringVendorExtension ignored = new StringVendorExtension("ignored", String.valueOf(ct.getIgnored()));
                     StringVendorExtension description = new StringVendorExtension("desciption", ct.getDescription());
