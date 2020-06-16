@@ -136,10 +136,12 @@ public class ContractAnalyzer {
                     Contract ct = collectionContract.iterator().next();
 
                     ObjectVendorExtension url;
-                    if(temp.contains(ct.getRequest().getUrl().getClientValue().toString()))
-                        url = new ObjectVendorExtension(ct.getRequest().getUrl().getClientValue().toString() + "_" + (i-1));
-                    else
+                    if(temp.contains(ct.getRequest().getUrl().getClientValue().toString())) {
+                        url = new ObjectVendorExtension(ct.getRequest().getUrl().getClientValue().toString() + "_" + (i - 1));
+                    }else {
                         url = new ObjectVendorExtension(ct.getRequest().getUrl().getClientValue().toString());
+                        temp.add(ct.getRequest().getUrl().getClientValue().toString());
+                    }
 
                     ObjectVendorExtension content = new ObjectVendorExtension("contractContent");
                     StringVendorExtension ignored = new StringVendorExtension("ignored", String.valueOf(ct.getIgnored()));
