@@ -212,7 +212,7 @@ public class ContractAnalyzer {
                                     }
                                 }
 
-                                break;
+                                //break;
                             }
                         }
                     }
