@@ -116,7 +116,9 @@ public class ContractAnalyzer {
             contractContent = fileContent.substring(fileContent.indexOf("[") + 1, fileContent.lastIndexOf("]"));
             String [] part1 = contractContent.split("Contract.make");
 
-            for( int i = 1; i <= part1.length; i++ ) {
+            System.out.println("part1.length: " + part1.length);
+
+            for( int i = 1; i < part1.length; i++ ) {
 
                 part1[i] = part1[i].trim();
 
@@ -176,6 +178,9 @@ public class ContractAnalyzer {
                         for (HashMap<String, String> h : testXmlSource) {
 
                             System.out.println("testMethodName: " + h.getOrDefault("name", "null"));
+
+                            System.out.println("name.getValue().toLowerCase().replaceAll(\"-\", \"_\"): " + name.getValue().toLowerCase().replaceAll("-", "_"));
+                            System.out.println("h.getOrDefault(\"name\", \"null\").toLowerCase().replaceFirst(\"validate_\", \"\"): " + h.getOrDefault("name", "null").toLowerCase().replaceFirst("validate_", ""));
 
                             if (h.getOrDefault("name", "null").toLowerCase().replaceFirst("validate_", "").equals(name.getValue().toLowerCase().replaceAll("-", "_"))) {
                                 started = new StringVendorExtension("started-at", h.getOrDefault("started-at", "null"));
