@@ -116,7 +116,7 @@ public class ContractAnalyzer {
             contractContent = fileContent.substring(fileContent.indexOf("[") + 1, fileContent.lastIndexOf("]"));
             String [] part1 = contractContent.split("Contract.make");
 
-            for( int i = 1; i <= part1.length-1; i++ ) {
+            for( int i = 1; i <= part1.length; i++ ) {
 
                 part1[i] = part1[i].trim();
 
@@ -212,7 +212,7 @@ public class ContractAnalyzer {
                                     }
                                 }
 
-                                //break;
+                                break;
                             }
                         }
                     }
