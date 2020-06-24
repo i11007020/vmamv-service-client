@@ -134,8 +134,8 @@ public class ContractAnalyzer {
                     cc.setName(ct.getName());
                     cc.setIgnored(ct.getIgnored());
 
-                    cc.setRequest(getRequest2(ct));
-                    cc.setResponse(getResponse2(ct));
+                    cc.setRequest(getRequest(ct));
+                    cc.setResponse(getResponse(ct));
 
 
                     TestResult tr = new TestResult();
@@ -444,7 +444,7 @@ public class ContractAnalyzer {
     }
 
 
-    private Request getRequest2(Contract ct){
+    private Request getRequest(Contract ct){
         Request rq = new Request();
 
         if (ct.getRequest().getMethod() != null)
@@ -471,7 +471,7 @@ public class ContractAnalyzer {
         return rq;
     }
 
-    private Response getResponse2(Contract ct) {
+    private Response getResponse(Contract ct) {
         Response rs = new Response();
 
         if (ct.getResponse().getBody() != null)
@@ -484,49 +484,6 @@ public class ContractAnalyzer {
             rs.setHeader(ct.getResponse().getHeaders().toString());
 
         return rs;
-    }
-
-
-    private ObjectVendorExtension getRequest(Contract ct) {
-        ObjectVendorExtension resultRequest = new ObjectVendorExtension("request");
-
-        if (ct.getRequest().getMethod() != null)
-            resultRequest.addProperty( new StringVendorExtension("method", ct.getRequest().getMethod().getClientValue().toString()) );
-
-        if (ct.getRequest().getUrl() != null) {
-            if (ct.getRequest().getUrl().getQueryParameters() != null) {
-                ObjectVendorExtension queryParameters = new ObjectVendorExtension("queryParameters");
-                List<QueryParameter> qps = ct.getRequest().getUrl().getQueryParameters().getParameters();
-
-                for(QueryParameter qp : qps)
-                    queryParameters.addProperty(new StringVendorExtension(qp.getName(), qp.getClientValue().toString()));
-
-                resultRequest.addProperty(queryParameters);
-            }
-        }
-
-        if (ct.getRequest().getHeaders() != null)
-            resultRequest.addProperty( new StringVendorExtension("header", ct.getRequest().getHeaders().toString()) );
-
-
-        return resultRequest;
-    }
-
-    private ObjectVendorExtension getResponse(Contract ct) {
-        ObjectVendorExtension resultResponse = new ObjectVendorExtension("response");
-
-        if (ct.getResponse().getBody() != null)
-            resultResponse.addProperty( new StringVendorExtension("body", ct.getResponse().getBody().getClientValue().toString()) );
-
-        if (ct.getResponse().getStatus() != null)
-            resultResponse.addProperty( new StringVendorExtension("status", ct.getResponse().getStatus().getClientValue().toString()) );
-
-        if(ct.getResponse().getHeaders() != null)
-            resultResponse.addProperty( new StringVendorExtension("header", ct.getResponse().getHeaders().toString() ));
-
-
-
-        return resultResponse;
     }
 
 }
