@@ -179,8 +179,11 @@ public class ContractAnalyzer {
 
                     apis.add(api);
 
-                    allAPIMap.replace(ct.getRequest().getUrl().getClientValue().toString(), apis);
 
+                    if(allAPIMap.get(ct.getRequest().getUrl().getClientValue().toString()) != null)
+                        allAPIMap.replace(ct.getRequest().getUrl().getClientValue().toString(), apis);
+                    else
+                        allAPIMap.put(ct.getRequest().getUrl().getClientValue().toString(), apis);
                 }
             }
 
