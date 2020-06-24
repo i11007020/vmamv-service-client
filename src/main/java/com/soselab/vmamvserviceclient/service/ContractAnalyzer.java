@@ -117,6 +117,7 @@ public class ContractAnalyzer {
             String [] part1 = contractContent.split("Contract.make");
 
             ArrayList<String> temp = new ArrayList<>();
+            Map<String,Integer> urlIndex = new HashMap<>();
 
             System.out.println("part1.length: " + part1.length);
 
@@ -135,13 +136,26 @@ public class ContractAnalyzer {
                 if(collectionContract.iterator().hasNext()) {
                     Contract ct = collectionContract.iterator().next();
 
-                    ObjectVendorExtension url;
-                    if(temp.contains(ct.getRequest().getUrl().getClientValue().toString())) {
+                    ObjectVendorExtension url = new ObjectVendorExtension(ct.getRequest().getUrl().getClientValue().toString());
+                    ObjectVendorExtension index;
+
+                    if(urlIndex.getOrDefault(ct.getRequest().getUrl().getClientValue().toString(),0) == 0){
+                        urlIndex.put(ct.getRequest().getUrl().getClientValue().toString(),0);
+                        index = new ObjectVendorExtension("0");
+                    }else{
+                        urlIndex.put(ct.getRequest().getUrl().getClientValue().toString(),(int)urlIndex.getOrDefault(ct.getRequest().getUrl().getClientValue().toString(),0)+1);
+                        index = new ObjectVendorExtension(Integer.toString(urlIndex.get(ct.getRequest().getUrl().getClientValue().toString())));
+                    }
+
+
+/*                    if(temp.contains(ct.getRequest().getUrl().getClientValue().toString())) {
                         url = new ObjectVendorExtension(ct.getRequest().getUrl().getClientValue().toString() + "_" + (i - 1));
                     }else {
                         url = new ObjectVendorExtension(ct.getRequest().getUrl().getClientValue().toString());
                         temp.add(ct.getRequest().getUrl().getClientValue().toString());
-                    }
+                    }*/
+
+
 
                     ObjectVendorExtension content = new ObjectVendorExtension("contractContent");
                     StringVendorExtension ignored = new StringVendorExtension("ignored", String.valueOf(ct.getIgnored()));
@@ -157,10 +171,11 @@ public class ContractAnalyzer {
                     StringVendorExtension duration;
                     StringVendorExtension status;
 
-                    url.addProperty(content);
-                    url.addProperty(test);
+                    url.addProperty(index);
+                    index.addProperty(content);
+                    index.addProperty(test);
 
-                    if (url.getValue() != null) {
+                    if (index.getValue() != null) {
                         if (ignored.getValue() != null) {
                             content.addProperty(ignored);
                         }
