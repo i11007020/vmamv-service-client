@@ -1,6 +1,5 @@
 package com.soselab.vmamvserviceclient.contract;
 
-import org.springframework.cloud.contract.spec.internal.QueryParameter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashMap;
@@ -9,7 +8,6 @@ import java.util.HashMap;
 public class Request {
 
     private String method;
-//    private List<QueryParameter> queryParameters;
     private HashMap<String,String> queryParameters;
     private String header;
 
