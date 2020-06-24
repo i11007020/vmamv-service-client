@@ -1,5 +1,8 @@
 package com.soselab.vmamvserviceclient.contract;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Response {
 
     private String body;

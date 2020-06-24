@@ -1,10 +1,11 @@
 package com.soselab.vmamvserviceclient.contract;
 
 import org.springframework.cloud.contract.spec.internal.QueryParameter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashMap;
-import java.util.List;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Request {
 
     private String method;
