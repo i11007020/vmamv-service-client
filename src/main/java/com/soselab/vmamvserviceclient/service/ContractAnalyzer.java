@@ -139,11 +139,11 @@ public class ContractAnalyzer {
                     ObjectVendorExtension url = new ObjectVendorExtension(ct.getRequest().getUrl().getClientValue().toString());
                     ObjectVendorExtension index;
 
-                    if(urlIndex.getOrDefault(ct.getRequest().getUrl().getClientValue().toString(),0) == 0){
+                    if(urlIndex.get(ct.getRequest().getUrl().getClientValue().toString()) == null){
                         urlIndex.put(ct.getRequest().getUrl().getClientValue().toString(),0);
                         index = new ObjectVendorExtension("0");
                     }else{
-                        urlIndex.put(ct.getRequest().getUrl().getClientValue().toString(),(int)urlIndex.getOrDefault(ct.getRequest().getUrl().getClientValue().toString(),0)+1);
+                        urlIndex.put(ct.getRequest().getUrl().getClientValue().toString(),(int)urlIndex.get(ct.getRequest().getUrl().getClientValue().toString())+1);
                         index = new ObjectVendorExtension(Integer.toString(urlIndex.get(ct.getRequest().getUrl().getClientValue().toString())));
                     }
 
