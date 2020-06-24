@@ -1,20 +1,13 @@
 package com.soselab.vmamvserviceclient.service;
 
-import com.soselab.vmamvserviceclient.annotation.*;
-import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
+import com.soselab.vmamvserviceclient.contract.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.contract.spec.Contract;
 import org.springframework.cloud.contract.spec.internal.QueryParameter;
-import org.springframework.cloud.contract.verifier.messaging.internal.ContractVerifierObjectMapper;
 import org.springframework.cloud.contract.verifier.util.ContractVerifierDslConverter;
-import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.web.bind.annotation.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -112,16 +105,100 @@ public class ContractAnalyzer {
             contract.addProperty(fileNameExtension);
 
 
+
             String contractContent = "";
             contractContent = fileContent.substring(fileContent.indexOf("[") + 1, fileContent.lastIndexOf("]"));
             String [] part1 = contractContent.split("Contract.make");
 
-            ArrayList<String> temp = new ArrayList<>();
-            Map<String,Integer> urlIndex = new HashMap<>();
+            Map<String,ArrayList<API>> allAPIMap = new HashMap<>();
 
-            System.out.println("part1.length: " + part1.length);
 
             for( int i = 1; i < part1.length; i++ ) {
+                part1[i] = part1[i].trim();
+
+                if(part1[i].endsWith(","))
+                    part1[i] = part1[i].substring(0,part1[i].length()-1);
+
+                logger.info("Collection<Contract>_" + fileName + ": ");
+                logger.info("Contract Content_" + i + ": " + "import org.springframework.cloud.contract.spec.Contract\n" + "[\n" + "Contract.make" + part1[i] + "\n]");
+                Collection<Contract> collectionContract = ContractVerifierDslConverter.convertAsCollection("import org.springframework.cloud.contract.spec.Contract\n" + "[\n" + "Contract.make" + part1[i] + "\n]");
+                logger.info("collectionContract_" + i + ": " + collectionContract);
+
+                if(collectionContract.iterator().hasNext()) {
+                    Contract ct = collectionContract.iterator().next();
+
+                    ArrayList<API> apis = allAPIMap.getOrDefault(ct.getRequest().getUrl().getClientValue().toString(), new ArrayList<API>());
+                    API api = new API();
+
+                    ContractContent cc = new ContractContent();
+
+                    cc.setDescription(ct.getDescription());
+                    cc.setName(ct.getName());
+                    cc.setIgnored(ct.getIgnored());
+                    cc.setRequest(ct.getRequest());
+                    cc.setResponse(ct.getResponse());
+
+
+                    TestResult tr = new TestResult();
+                    ErrorMessage errorMessage = new ErrorMessage();
+
+
+                    ArrayList<HashMap<String, String>> testXmlSource = readfile_testXml(filepath_testXml, appName);
+
+                    if (testXmlSource != null) {
+                        for (HashMap<String, String> h : testXmlSource) {
+
+                            System.out.println("testMethodName: " + h.getOrDefault("name", "null"));
+
+                            System.out.println("name.getValue().toLowerCase().replaceAll(\"-\", \"_\"): " + ct.getName().toLowerCase().replaceAll("-", "_"));
+                            System.out.println("h.getOrDefault(\"name\", \"null\").toLowerCase().replaceFirst(\"validate_\", \"\"): " + h.getOrDefault("name", "null").toLowerCase().replaceFirst("validate_", ""));
+
+                            if (h.getOrDefault("name", "null").toLowerCase().replaceFirst("validate_", "").equals(ct.getName().toLowerCase().replaceAll("-", "_"))) {
+
+                                tr.setStarted_at(h.getOrDefault("started-at", "null"));
+                                tr.setFinished_at(h.getOrDefault("finished-at", "null"));
+                                tr.setDuration_ms(h.getOrDefault("duration-ms", "null"));
+                                tr.setStatus(h.getOrDefault("status", "null"));
+
+
+                                if (h.getOrDefault("status", "null").equals("FAIL")) {
+
+                                    errorMessage.setException(h.getOrDefault("exception", "null"));
+                                    errorMessage.setMessage(h.getOrDefault("message", "null"));
+
+                                    tr.setErrorMessage(errorMessage);
+                                }
+
+                                break;
+                            }
+                        }
+                    }
+
+                    api.setContractContent(cc);
+                    api.setTestResult(tr);
+
+                    apis.add(api);
+
+                    allAPIMap.replace(ct.getRequest().getUrl().getClientValue().toString(), apis);
+
+                }
+            }
+
+
+
+            for (Map.Entry<String,ArrayList<API>> entry : allAPIMap.entrySet()) {
+                String key = entry.getKey();
+                ArrayList<API> value = entry.getValue();
+
+                ListVendorExtension<API> url = new ListVendorExtension<API>(key,value);
+
+                fileNameExtension.addProperty(url);
+            }
+
+
+            //**********************************************************************//
+
+/*            for( int i = 1; i < part1.length; i++ ) {
 
                 part1[i] = part1[i].trim();
 
@@ -136,24 +213,25 @@ public class ContractAnalyzer {
                 if(collectionContract.iterator().hasNext()) {
                     Contract ct = collectionContract.iterator().next();
 
-                    ObjectVendorExtension url = new ObjectVendorExtension(ct.getRequest().getUrl().getClientValue().toString());
-                    ObjectVendorExtension index;
+                    //ObjectVendorExtension url = new ObjectVendorExtension(ct.getRequest().getUrl().getClientValue().toString());
+                    ArrayList<API> apis = new ArrayList<>();
+                    ListVendorExtension<API> url = new ListVendorExtension<>(ct.getRequest().getUrl().getClientValue().toString(),apis);
 
-                    if(urlIndex.get(ct.getRequest().getUrl().getClientValue().toString()) == null){
+*//*                    if(urlIndex.get(ct.getRequest().getUrl().getClientValue().toString()) == null){
                         urlIndex.put(ct.getRequest().getUrl().getClientValue().toString(),0);
                         index = new ObjectVendorExtension("0");
                     }else{
                         urlIndex.put(ct.getRequest().getUrl().getClientValue().toString(),(int)urlIndex.get(ct.getRequest().getUrl().getClientValue().toString())+1);
                         index = new ObjectVendorExtension(Integer.toString(urlIndex.get(ct.getRequest().getUrl().getClientValue().toString())));
-                    }
+                    }*//*
 
 
-/*                    if(temp.contains(ct.getRequest().getUrl().getClientValue().toString())) {
+*//*                    if(temp.contains(ct.getRequest().getUrl().getClientValue().toString())) {
                         url = new ObjectVendorExtension(ct.getRequest().getUrl().getClientValue().toString() + "_" + (i - 1));
                     }else {
                         url = new ObjectVendorExtension(ct.getRequest().getUrl().getClientValue().toString());
                         temp.add(ct.getRequest().getUrl().getClientValue().toString());
-                    }*/
+                    }*//*
 
 
 
@@ -246,7 +324,7 @@ public class ContractAnalyzer {
                         }
                     }
                 }
-            }
+            }*/
         }
 
 
