@@ -95,6 +95,7 @@ public class ContractAnalyzer {
         ObjectVendorExtension contract =  new ObjectVendorExtension("x-contract");
 
 
+        // groovys:服務上的所有契約，groovy:每份契約
         for(HashMap<String,String> groovy: groovys){
             String fileName = groovy.get("fileName");
             String fileContent = groovy.get("fileContent");
@@ -108,9 +109,11 @@ public class ContractAnalyzer {
             contractContent = fileContent.substring(fileContent.indexOf("[") + 1, fileContent.lastIndexOf("]"));
             String [] part1 = contractContent.split("Contract.make");
 
+            // <端點名, 契約> ， 每個端點可能有複數測試案例
             Map<String,ArrayList<API>> allAPIMap = new HashMap<>();
 
 
+            // 每個測試案例
             for( int i = 1; i < part1.length; i++ ) {
                 part1[i] = part1[i].trim();
 
@@ -142,6 +145,7 @@ public class ContractAnalyzer {
                     ErrorMessage errorMessage = new ErrorMessage();
 
 
+                    // 拿取測試結果
                     ArrayList<HashMap<String, String>> testXmlSource = readfile_testXml(filepath_testXml, appName);
 
                     if (testXmlSource != null) {
@@ -187,7 +191,6 @@ public class ContractAnalyzer {
             }
 
 
-
             for (Map.Entry<String,ArrayList<API>> entry : allAPIMap.entrySet()) {
                 String key = entry.getKey();
                 ArrayList<API> value = entry.getValue();
@@ -197,136 +200,6 @@ public class ContractAnalyzer {
                 fileNameExtension.addProperty(url);
             }
 
-
-            //**********************************************************************//
-
-/*            for( int i = 1; i < part1.length; i++ ) {
-
-                part1[i] = part1[i].trim();
-
-                if(part1[i].endsWith(","))
-                    part1[i] = part1[i].substring(0,part1[i].length()-1);
-
-                logger.info("Collection<Contract>_" + fileName + ": ");
-                logger.info("Contract Content_" + i + ": " + "import org.springframework.cloud.contract.spec.Contract\n" + "[\n" + "Contract.make" + part1[i] + "\n]");
-                Collection<Contract> collectionContract = ContractVerifierDslConverter.convertAsCollection("import org.springframework.cloud.contract.spec.Contract\n" + "[\n" + "Contract.make" + part1[i] + "\n]");
-                logger.info("collectionContract_" + i + ": " + collectionContract);
-
-                if(collectionContract.iterator().hasNext()) {
-                    Contract ct = collectionContract.iterator().next();
-
-                    //ObjectVendorExtension url = new ObjectVendorExtension(ct.getRequest().getUrl().getClientValue().toString());
-                    ArrayList<API> apis = new ArrayList<>();
-                    ListVendorExtension<API> url = new ListVendorExtension<>(ct.getRequest().getUrl().getClientValue().toString(),apis);
-
-*//*                    if(urlIndex.get(ct.getRequest().getUrl().getClientValue().toString()) == null){
-                        urlIndex.put(ct.getRequest().getUrl().getClientValue().toString(),0);
-                        index = new ObjectVendorExtension("0");
-                    }else{
-                        urlIndex.put(ct.getRequest().getUrl().getClientValue().toString(),(int)urlIndex.get(ct.getRequest().getUrl().getClientValue().toString())+1);
-                        index = new ObjectVendorExtension(Integer.toString(urlIndex.get(ct.getRequest().getUrl().getClientValue().toString())));
-                    }*//*
-
-
-*//*                    if(temp.contains(ct.getRequest().getUrl().getClientValue().toString())) {
-                        url = new ObjectVendorExtension(ct.getRequest().getUrl().getClientValue().toString() + "_" + (i - 1));
-                    }else {
-                        url = new ObjectVendorExtension(ct.getRequest().getUrl().getClientValue().toString());
-                        temp.add(ct.getRequest().getUrl().getClientValue().toString());
-                    }*//*
-
-
-
-                    ObjectVendorExtension content = new ObjectVendorExtension("contractContent");
-                    StringVendorExtension ignored = new StringVendorExtension("ignored", String.valueOf(ct.getIgnored()));
-                    StringVendorExtension description = new StringVendorExtension("desciption", ct.getDescription());
-                    StringVendorExtension name = new StringVendorExtension("name", ct.getName());
-
-                    ObjectVendorExtension request = this.getRequest(ct);
-                    ObjectVendorExtension response = this.getResponse(ct);
-
-                    ObjectVendorExtension test = new ObjectVendorExtension("testResult");
-                    StringVendorExtension started;
-                    StringVendorExtension finished;
-                    StringVendorExtension duration;
-                    StringVendorExtension status;
-
-                    url.addProperty(index);
-                    index.addProperty(content);
-                    index.addProperty(test);
-
-                    if (index.getValue() != null) {
-                        if (ignored.getValue() != null) {
-                            content.addProperty(ignored);
-                        }
-                        if (description.getValue() != null) {
-                            content.addProperty(description);
-                        }
-                        if (name.getValue() != null) {
-                            content.addProperty(name);
-                        }
-                        if (request.getValue() != null) {
-                            content.addProperty(request);
-                        }
-                        if (response.getValue() != null) {
-                            content.addProperty(response);
-                        }
-
-                        fileNameExtension.addProperty(url);
-                    }
-
-                    ArrayList<HashMap<String, String>> testXmlSource = readfile_testXml(filepath_testXml, appName);
-
-
-                    if (testXmlSource != null) {
-                        for (HashMap<String, String> h : testXmlSource) {
-
-                            System.out.println("testMethodName: " + h.getOrDefault("name", "null"));
-
-                            System.out.println("name.getValue().toLowerCase().replaceAll(\"-\", \"_\"): " + name.getValue().toLowerCase().replaceAll("-", "_"));
-                            System.out.println("h.getOrDefault(\"name\", \"null\").toLowerCase().replaceFirst(\"validate_\", \"\"): " + h.getOrDefault("name", "null").toLowerCase().replaceFirst("validate_", ""));
-
-                            if (h.getOrDefault("name", "null").toLowerCase().replaceFirst("validate_", "").equals(name.getValue().toLowerCase().replaceAll("-", "_"))) {
-                                started = new StringVendorExtension("started-at", h.getOrDefault("started-at", "null"));
-                                finished = new StringVendorExtension("finished-at", h.getOrDefault("finished-at", "null"));
-                                duration = new StringVendorExtension("duration-ms", h.getOrDefault("duration-ms", "null"));
-                                status = new StringVendorExtension("status", h.getOrDefault("status", "null"));
-
-                                if (started.getValue() != null) {
-                                    test.addProperty(started);
-                                }
-                                if (finished.getValue() != null) {
-                                    test.addProperty(finished);
-                                }
-                                if (duration.getValue() != null) {
-                                    test.addProperty(duration);
-                                }
-                                if (status.getValue() != null) {
-                                    test.addProperty(status);
-                                }
-
-                                if (h.getOrDefault("status", "null").equals("FAIL")) {
-                                    ObjectVendorExtension errorMessage = new ObjectVendorExtension("errorMessage");
-                                    StringVendorExtension exceptionType = new StringVendorExtension("exception", h.getOrDefault("exception", "null"));
-                                    StringVendorExtension message = new StringVendorExtension("message", h.getOrDefault("message", "null"));
-
-
-                                    test.addProperty(errorMessage);
-
-                                    if (exceptionType.getValue() != null) {
-                                        errorMessage.addProperty(exceptionType);
-                                    }
-                                    if (message.getValue() != null) {
-                                        errorMessage.addProperty(message);
-                                    }
-                                }
-
-                                break;
-                            }
-                        }
-                    }
-                }
-            }*/
         }
 
 
