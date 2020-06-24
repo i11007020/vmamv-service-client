@@ -135,8 +135,9 @@ public class ContractAnalyzer {
                     cc.setDescription(ct.getDescription());
                     cc.setName(ct.getName());
                     cc.setIgnored(ct.getIgnored());
-                    cc.setRequest(ct.getRequest());
-                    cc.setResponse(ct.getResponse());
+
+                    cc.setRequest(getRequest2(ct));
+                    cc.setResponse(getResponse2(ct));
 
 
                     TestResult tr = new TestResult();
@@ -193,7 +194,7 @@ public class ContractAnalyzer {
                 String key = entry.getKey();
                 ArrayList<API> value = entry.getValue();
 
-                ListVendorExtension<API> url = new ListVendorExtension<API>(key,value);
+                ListVendorExtension<API> url = new ListVendorExtension<>(key,value);
 
                 fileNameExtension.addProperty(url);
             }
@@ -442,6 +443,41 @@ public class ContractAnalyzer {
             logger.error(e.getMessage(), e);
             return null;
         }
+    }
+
+
+    private Request getRequest2(Contract ct){
+        Request rq = new Request();
+
+        if (ct.getRequest().getMethod() != null)
+            rq.setMethod(ct.getRequest().getMethod().getClientValue().toString());
+
+        if (ct.getRequest().getUrl() != null) {
+            if (ct.getRequest().getUrl().getQueryParameters() != null) {
+                rq.setQps(ct.getRequest().getUrl().getQueryParameters().getParameters());
+            }
+        }
+
+        if (ct.getRequest().getHeaders() != null)
+            rq.setHeader(ct.getRequest().getHeaders().toString());
+
+
+        return rq;
+    }
+
+    private Response getResponse2(Contract ct) {
+        Response rs = new Response();
+
+        if (ct.getResponse().getBody() != null)
+            rs.setBody(ct.getResponse().getBody().getClientValue().toString());
+
+        if (ct.getResponse().getStatus() != null)
+            rs.setStatus(ct.getResponse().getStatus().getClientValue().toString());
+
+        if(ct.getResponse().getHeaders() != null)
+            rs.setHeader(ct.getResponse().getHeaders().toString());
+
+        return rs;
     }
 
 

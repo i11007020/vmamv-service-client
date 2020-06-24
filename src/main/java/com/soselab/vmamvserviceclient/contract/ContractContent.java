@@ -1,8 +1,5 @@
 package com.soselab.vmamvserviceclient.contract;
 
-import org.springframework.cloud.contract.spec.internal.Request;
-import org.springframework.cloud.contract.spec.internal.Response;
-
 public class ContractContent {
 
     private String description;
