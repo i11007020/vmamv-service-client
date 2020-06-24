@@ -2,12 +2,14 @@ package com.soselab.vmamvserviceclient.contract;
 
 import org.springframework.cloud.contract.spec.internal.QueryParameter;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Request {
 
     private String method;
-    private List<QueryParameter> qps;
+//    private List<QueryParameter> queryParameters;
+    private HashMap<String,String> queryParameters;
     private String header;
 
     public String getMethod() {
@@ -18,12 +20,12 @@ public class Request {
         this.method = method;
     }
 
-    public List<QueryParameter> getQps() {
-        return qps;
+    public HashMap<String,String> getQps() {
+        return queryParameters;
     }
 
-    public void setQps(List<QueryParameter> qps) {
-        this.qps = qps;
+    public void setQps(HashMap<String,String> queryParameters) {
+        this.queryParameters = queryParameters;
     }
 
     public String getHeader() {

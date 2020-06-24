@@ -31,10 +31,8 @@ public class ContractAnalyzer {
 
     public List<VendorExtension> swaggerExtension(String filepath_groovy, String filepath_testXml, String appName) throws Exception {
         ArrayList<String> contractFileName = new ArrayList<>();
-        //ArrayList<String> mappingSource = new ArrayList<>();
 
         contractFileName = readFile_dir(filepath_groovy);
-        //mappingSource = readFile_dir(filepath_mappings);
 
 
         ObjectVendorExtension extension;
@@ -454,9 +452,17 @@ public class ContractAnalyzer {
 
         if (ct.getRequest().getUrl() != null) {
             if (ct.getRequest().getUrl().getQueryParameters() != null) {
-                rq.setQps(ct.getRequest().getUrl().getQueryParameters().getParameters());
+                List<QueryParameter> qps = ct.getRequest().getUrl().getQueryParameters().getParameters();
+                HashMap<String,String> queryParameters = new HashMap<>();
+
+                for(QueryParameter qp : qps)
+                    queryParameters.put(qp.getName(), qp.getClientValue().toString());
+
+                rq.setQps(queryParameters);
+
             }
         }
+
 
         if (ct.getRequest().getHeaders() != null)
             rq.setHeader(ct.getRequest().getHeaders().toString());
