@@ -20,11 +20,11 @@ public class Request {
         this.method = method;
     }
 
-    public HashMap<String,String> getQps() {
+    public HashMap<String, String> getQueryParameters() {
         return queryParameters;
     }
 
-    public void setQps(HashMap<String,String> queryParameters) {
+    public void setQueryParameters(HashMap<String, String> queryParameters) {
         this.queryParameters = queryParameters;
     }
 

@@ -458,7 +458,7 @@ public class ContractAnalyzer {
                 for(QueryParameter qp : qps)
                     queryParameters.put(qp.getName(), qp.getClientValue().toString());
 
-                rq.setQps(queryParameters);
+                rq.setQueryParameters(queryParameters);
 
             }
         }
